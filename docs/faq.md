@@ -10,7 +10,7 @@ Traditional payment systems weren't designed for micropayments or machine-to-mac
 
 ## How fast are payments?
 
-Payment verification completes in under 50 milliseconds since it's purely cryptographic validation. Settlement on the Aptos blockchain takes 1-3 seconds. The total flow from initial request to receiving the protected resource typically completes in under 3 seconds.
+Payment verification completes in under 50 milliseconds since it's purely cryptographic validation. Settlement on the BNB blockchain takes 1-3 seconds. The total flow from initial request to receiving the protected resource typically completes in under 3 seconds.
 
 ## What does it cost?
 
@@ -18,7 +18,7 @@ The client pays transaction gas fees of approximately 0.0001 APT plus whatever p
 
 ## Do I need a blockchain wallet?
 
-API providers need an Aptos wallet address to receive payments, but don't need access to the private key on their servers. API consumers need a wallet with APT tokens to make payments. For development, you can generate wallets programmatically and fund them from the testnet faucet.
+API providers need an BNB wallet address to receive payments, but don't need access to the private key on their servers. API consumers need a wallet with APT tokens to make payments. For development, you can generate wallets programmatically and fund them from the testnet faucet.
 
 ## Can this work in production?
 
@@ -26,7 +26,7 @@ Yes, the protocol is designed for production use. Start with testnet for develop
 
 ## What's a facilitator?
 
-A facilitator is a service that handles blockchain interactions for x402 servers. It verifies payment structures and submits transactions to the Aptos blockchain. Separating these operations into a dedicated service improves security and allows multiple APIs to share the same facilitator.
+A facilitator is a service that handles blockchain interactions for x402 servers. It verifies payment structures and submits transactions to the BNB blockchain. Separating these operations into a dedicated service improves security and allows multiple APIs to share the same facilitator.
 
 ## Do my API routes need payment logic?
 
@@ -58,12 +58,12 @@ No. The middleware only allows your API code to execute after verifying and sett
 
 ## What networks are supported?
 
-This implementation supports Aptos testnet and mainnet. The protocol itself is blockchain-agnostic, and implementations exist or are planned for other chains including Ethereum, Solana, and Sui.
+This implementation supports BNB testnet and mainnet. The protocol itself is blockchain-agnostic, and implementations exist or are planned for other chains including Ethereum, Solana, and Sui.
 
 ## How do I test without spending real money?
 
-Use Aptos testnet, which has free test tokens available from the faucet. Configure your middleware with `network: 'testnet'` and fund test wallets from aptoslabs.com/testnet-faucet. Everything works identically to mainnet but uses test tokens with no real value.
+Use BNB testnet, which has free test tokens available from the faucet. Configure your middleware with `network: 'testnet'` and fund test wallets from BNBlabs.com/testnet-faucet. Everything works identically to mainnet but uses test tokens with no real value.
 
 ## Where can I get help?
 
-Open issues on the GitHub repository at github.com/adipundir/aptos-x402, check existing discussions, or refer to these documentation pages. The protocol specification at github.com/coinbase/x402 provides additional context about the broader x402 standard.
+Open issues on the GitHub repository at github.com/adipundir/BNB-x402, check existing discussions, or refer to these documentation pages. The protocol specification at github.com/coinbase/x402 provides additional context about the broader x402 standard.

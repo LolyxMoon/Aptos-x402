@@ -1,17 +1,17 @@
 # Quick Start: x402axios
 
-The easiest way to use x402 for Aptos is the x402axios helper. It handles the full 402 → pay → retry flow for you.
+The easiest way to use x402 for BNB is the x402axios helper. It handles the full 402 → pay → retry flow for you.
 
 ## Installation
 
 ```bash
-npm install @adipundir/aptos-x402
+npm install @adipundir/BNB-x402
 ```
 
 ## Basic usage
 
 ```typescript
-import { x402axios } from '@adipundir/aptos-x402';
+import { x402axios } from '@adipundir/BNB-x402';
 
 const response = await x402axios({
   privateKey: process.env.PRIVATE_KEY!,
@@ -40,11 +40,11 @@ const analysis = await x402axios({
 });
 ```
 
-## Using an Aptos Account
+## Using an BNB Account
 
 ```typescript
-import { Account, Ed25519PrivateKey } from '@aptos-labs/ts-sdk';
-import { x402axios } from '@adipundir/aptos-x402';
+import { Account, Ed25519PrivateKey } from '@BNB-labs/ts-sdk';
+import { x402axios } from '@adipundir/BNB-x402';
 
 const privateKey = new Ed25519PrivateKey(process.env.PRIVATE_KEY!);
 const account = Account.fromPrivateKey({ privateKey });
@@ -58,7 +58,7 @@ const res = await x402axios({
 ## What x402axios does
 
 - Detects 402 Payment Required responses
-- Builds and signs the Aptos transaction
+- Builds and signs the BNB transaction
 - Sends X-PAYMENT header and retries
 - Returns your data and payment info if a payment was made
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `@adipundir/aptos-x402` SDK provides functions for both **buyers** (consuming paid APIs) and **sellers** (creating paid APIs).
+The `@adipundir/BNB-x402` SDK provides functions for both **buyers** (consuming paid APIs) and **sellers** (creating paid APIs).
 
 ---
 
@@ -13,7 +13,7 @@ The `@adipundir/aptos-x402` SDK provides functions for both **buyers** (consumin
 The simplest way to access x402-protected APIs. Just provide your private key and URL!
 
 ```typescript
-import { x402axios } from '@adipundir/aptos-x402';
+import { x402axios } from '@adipundir/BNB-x402';
 
 // Make a request - payment handled automatically!
 const response = await x402axios({
@@ -36,7 +36,7 @@ console.log(response.paymentInfo); // { transactionHash, amount, ... }
 ```typescript
 interface WithPaymentInterceptorOptions {
   privateKey?: string;           // Private key OR
-  account?: Account;             // Aptos account
+  account?: Account;             // BNB account
   url: string;                   // Required
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   body?: any;
@@ -61,7 +61,7 @@ interface X402Response<T = any> {
 Decode the X-Payment-Response header to get payment settlement details.
 
 ```typescript
-import { decodeXPaymentResponse } from '@adipundir/aptos-x402';
+import { decodeXPaymentResponse } from '@adipundir/BNB-x402';
 
 const paymentResponse = decodeXPaymentResponse(
   response.headers['x-payment-response']
@@ -79,7 +79,7 @@ console.log(paymentResponse?.settlement?.txHash);
 Create payment-protected API routes in Next.js with simple configuration.
 
 ```typescript
-import { paymentMiddleware } from '@adipundir/aptos-x402';
+import { paymentMiddleware } from '@adipundir/BNB-x402';
 
 export const middleware = paymentMiddleware(
   process.env.PAYMENT_RECIPIENT_ADDRESS!,
@@ -134,7 +134,7 @@ import {
   verifyPaymentSimple, 
   settlePaymentSimple,
   createPaymentResponse 
-} from '@adipundir/aptos-x402';
+} from '@adipundir/BNB-x402';
 
 // Verify a payment (checks signature only, no blockchain)
 const facilitatorBaseUrl = 'https://your-domain.com/api/facilitator';
@@ -163,28 +163,28 @@ const header = createPaymentResponse(settlement);
 
 ## Utility Functions
 
-For advanced use cases, the SDK also exports Aptos utilities:
+For advanced use cases, the SDK also exports BNB utilities:
 
 ```typescript
 import {
-  getAptosClient,
+  getBNBClient,
   getAccountFromPrivateKey,
   signAndSubmitPayment,
   getAccountBalance,
-} from '@adipundir/aptos-x402';
+} from '@adipundir/BNB-x402';
 
-// Get Aptos client
-const aptos = getAptosClient('testnet');
+// Get BNB client
+const BNB = getBNBClient('testnet');
 
 // Get account from private key
 const account = getAccountFromPrivateKey('0x...');
 
 // Check balance
-const balance = await getAccountBalance(aptos, accountAddress);
+const balance = await getAccountBalance(BNB, accountAddress);
 
 // Sign and submit payment
 const txHash = await signAndSubmitPayment(
-  aptos,
+  BNB,
   account,
   '0x...', // recipient
   '1000000' // amount
@@ -206,7 +206,7 @@ const txHash = await signAndSubmitPayment(
 - `createPaymentResponse` - Create payment response headers
 
 ### **Utilities**
-- `getAptosClient` - Get configured Aptos client
+- `getBNBClient` - Get configured BNB client
 - `getAccountFromPrivateKey` - Create account from key
 - `signAndSubmitPayment` - Sign and submit transactions
 - `getAccountBalance` - Check account balance
@@ -224,7 +224,7 @@ const txHash = await signAndSubmitPayment(
 
 ### **Buyer Example**
 ```typescript
-import { x402axios } from '@adipundir/aptos-x402';
+import { x402axios } from '@adipundir/BNB-x402';
 
 const response = await x402axios({
   privateKey: process.env.PRIVATE_KEY!,
@@ -235,7 +235,7 @@ console.log(response.data);
 
 ### **Seller Example**
 ```typescript
-import { paymentMiddleware } from '@adipundir/aptos-x402';
+import { paymentMiddleware } from '@adipundir/BNB-x402';
 
 export const middleware = paymentMiddleware(
   process.env.RECIPIENT_ADDRESS!,

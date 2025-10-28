@@ -1,8 +1,8 @@
-# Welcome to x402 for Aptos
+# Welcome to x402 for BNB
 
 x402 is an open payment protocol that enables APIs to require payment before serving responses. Built on the HTTP 402 Payment Required status code, it allows services to charge for access directly over APIs using cryptocurrency payments.
 
-This implementation brings x402 to the Aptos blockchain, leveraging Aptos's fast finality and low transaction costs to enable practical micropayments for API access.
+This implementation brings x402 to the BNB blockchain, leveraging BNB's fast finality and low transaction costs to enable practical micropayments for API access.
 
 ## What is x402?
 
@@ -10,17 +10,17 @@ The x402 protocol standardizes how web services can require payment for resource
 
 This approach enables machine-to-machine payments without requiring accounts, API keys, or subscription management. It's particularly powerful for AI agents, pay-per-call APIs, and usage-based services where traditional payment systems are too heavyweight or expensive.
 
-## Why Aptos?
+## Why BNB?
 
-Aptos provides an ideal foundation for x402 payments with transaction finality in 1-3 seconds and transaction costs around $0.0001. This makes it practical to charge for individual API calls, unlike blockchains where settlement times or fees make micropayments impractical.
+BNB provides an ideal foundation for x402 payments with transaction finality in 1-3 seconds and transaction costs around $0.0001. This makes it practical to charge for individual API calls, unlike blockchains where settlement times or fees make micropayments impractical.
 
-The Aptos Move VM's strong safety guarantees and the platform's focus on developer experience make it straightforward to build reliable payment-enabled services.
+The BNB Move VM's strong safety guarantees and the platform's focus on developer experience make it straightforward to build reliable payment-enabled services.
 
 ## The Protocol Flow
 
-The x402 protocol follows a simple request-response pattern. A client requests a resource without payment and receives a 402 response containing payment instructions. The client creates and signs an Aptos transaction offline, then retries the request with the signed transaction in an X-PAYMENT header.
+The x402 protocol follows a simple request-response pattern. A client requests a resource without payment and receives a 402 response containing payment instructions. The client creates and signs an BNB transaction offline, then retries the request with the signed transaction in an X-PAYMENT header.
 
-The server verifies the payment structure quickly, settles it on the Aptos blockchain, and delivers the resource only after successful settlement. The entire process typically completes in 1-3 seconds.
+The server verifies the payment structure quickly, settles it on the BNB blockchain, and delivers the resource only after successful settlement. The entire process typically completes in 1-3 seconds.
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ The architecture separates concerns through a facilitator service that handles b
 
 ### Free Public Facilitator
 
-We provide a **free public facilitator** at `https://aptos-x402.vercel.app/api/facilitator` that handles blockchain interactions for you. This service:
+We provide a **free public facilitator** at `https://BNB-x402.vercel.app/api/facilitator` that handles blockchain interactions for you. This service:
 
 - Is completely free for all users
 - Works on both testnet and mainnet
@@ -51,7 +51,7 @@ Start building with x402 by following the quickstart guide for your role:
 
 ## Resources
 
-- [GitHub Repository](https://github.com/adipundir/aptos-x402)
-- [NPM Package](https://www.npmjs.com/package/@adipundir/aptos-x402)
-- [Live Demo](https://aptos-x402.vercel.app)
+- [GitHub Repository](https://github.com/adipundir/BNB-x402)
+- [NPM Package](https://www.npmjs.com/package/@adipundir/BNB-x402)
+- [Live Demo](https://BNB-x402.vercel.app)
 - [x402 Protocol Specification](https://github.com/coinbase/x402)

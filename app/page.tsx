@@ -16,7 +16,7 @@ export default function LandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 bg-zinc-50/50 backdrop-blur-sm text-sm text-zinc-700">
               <Package className="w-3 h-3" />
-              <span>x402 Payment Protocol for Aptos</span>
+              <span>x402 Payment Protocol for BNB</span>
             </div>
 
             {/* Headline */}
@@ -47,7 +47,7 @@ export default function LandingPage() {
             <div className="pt-8">
               <p className="text-sm text-zinc-500 mb-3">Install via npm</p>
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 rounded-lg font-mono text-sm text-zinc-100">
-                <span>npm install @adipundir/aptos-x402</span>
+                <span>npm install @adipundir/BNB-x402</span>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function LandingPage() {
                 Fast Finality
               </h3>
               <p className="text-zinc-600 text-sm leading-relaxed">
-                Built on Aptos blockchain. Verification in &lt;50ms, settlement in 1-3 seconds.
+                Built on BNB blockchain. Verification in &lt;50ms, settlement in 1-3 seconds.
               </p>
             </div>
 
@@ -255,14 +255,14 @@ console.log(result.data);`}
             {/* Large Typography */}
             <div className="text-center mb-12">
               <h2 className="text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-zinc-900" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-                aptos-x402
+                BNB-x402
               </h2>
             </div>
             
             {/* Footer Links */}
             <div className="flex items-center justify-between text-sm text-zinc-600">
               <div>
-                Built for the <span className="font-semibold text-zinc-900">Aptos</span> ecosystem
+                Built for the <span className="font-semibold text-zinc-900">BNB</span> ecosystem
               </div>
               <div className="flex items-center gap-6">
                 <a

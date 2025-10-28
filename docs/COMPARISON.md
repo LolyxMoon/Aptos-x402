@@ -1,25 +1,25 @@
-# Comparison: @adipundir/aptos-x402 vs Coinbase x402
+# Comparison: @adipundir/BNB-x402 vs Coinbase x402
 
-This document compares our Aptos implementation with the official Coinbase x402 implementation for Ethereum/Base.
+This document compares our BNB implementation with the official Coinbase x402 implementation for Ethereum/Base.
 
 ## Overview
 
 Both implementations follow the same x402 protocol specification but are adapted for different blockchain ecosystems:
 
 - **Coinbase x402**: Ethereum/Base (EVM) with USDC payments
-- **@adipundir/aptos-x402**: Aptos blockchain with APT payments
+- **@adipundir/BNB-x402**: BNB blockchain with APT payments
 
 ## Quick Comparison
 
-| Feature | Coinbase x402 | @adipundir/aptos-x402 |
+| Feature | Coinbase x402 | @adipundir/BNB-x402 |
 |---------|---------------|----------------------|
-| **Blockchain** | Ethereum/Base | Aptos |
+| **Blockchain** | Ethereum/Base | BNB |
 | **Payment Token** | USDC | APT |
 | **Language** | TypeScript/Python | TypeScript |
 | **HTTP Client** | axios, fetch, httpx | Single-function helper (x402axios) |
 | **Signature Scheme** | ECDSA (secp256k1) | Ed25519 |
 | **Transaction Format** | EVM call data | BCS serialization |
-| **Wallet** | viem/eth-account | @aptos-labs/ts-sdk |
+| **Wallet** | viem/eth-account | @BNB-labs/ts-sdk |
 
 ## Usage Comparison
 
@@ -32,9 +32,9 @@ npm install x402-axios
 npm install x402-fetch
 ```
 
-**@adipundir/aptos-x402:**
+**@adipundir/BNB-x402:**
 ```bash
-npm install @adipundir/aptos-x402
+npm install @adipundir/BNB-x402
 ```
 
 ### Create Wallet Client
@@ -53,9 +53,9 @@ const client = createWalletClient({
 });
 ```
 
-**@adipundir/aptos-x402:**
+**@adipundir/BNB-x402:**
 ```typescript
-import { Ed25519PrivateKey, Account } from "@aptos-labs/ts-sdk";
+import { Ed25519PrivateKey, Account } from "@BNB-labs/ts-sdk";
 
 const privateKey = new Ed25519PrivateKey("0xYourPrivateKey");
 const account = Account.fromPrivateKey({ privateKey });
@@ -82,9 +82,9 @@ const paymentResponse = decodeXPaymentResponse(
 console.log(paymentResponse);
 ```
 
-**@adipundir/aptos-x402:**
+**@adipundir/BNB-x402:**
 ```typescript
-import { x402axios } from '@adipundir/aptos-x402';
+import { x402axios } from '@adipundir/BNB-x402';
 
 const response = await x402axios({
   privateKey: process.env.PRIVATE_KEY!,
@@ -113,7 +113,7 @@ const response = await withPaymentHeaders(
 console.log(await response.json());
 ```
 
-<!-- No separate fetch wrapper in @adipundir/aptos-x402; use x402axios as shown above. -->
+<!-- No separate fetch wrapper in @adipundir/BNB-x402; use x402axios as shown above. -->
 
 ## Key Differences
 
@@ -125,7 +125,7 @@ console.log(await response.json());
 - RLP encoding
 - Gas fees in ETH/GWEI
 
-**Aptos:**
+**BNB:**
 - Uses BCS (Binary Canonical Serialization)
 - Ed25519 signatures
 - Transaction and signature sent separately
@@ -138,10 +138,10 @@ console.log(await response.json());
 - Consistent dollar pricing
 - Multiple EVM chains supported
 
-**Aptos:**
+**BNB:**
 - Native APT token
 - Variable pricing (crypto volatility)
-- Single chain (Aptos)
+- Single chain (BNB)
 
 ### 3. Network Support
 
@@ -150,10 +150,10 @@ console.log(await response.json());
 - Base Sepolia (testnet)
 - Other EVM chains
 
-**Aptos:**
-- Aptos Mainnet
-- Aptos Testnet
-- Aptos Devnet
+**BNB:**
+- BNB Mainnet
+- BNB Testnet
+- BNB Devnet
 
 ### 4. Facilitator Architecture
 
@@ -162,7 +162,7 @@ console.log(await response.json());
 - On-chain payment verification
 - Gas optimization important
 
-**Aptos:**
+**BNB:**
 - Uses API endpoints for verification
 - Off-chain verification, on-chain settlement
 - Move-based smart contracts (future)
@@ -209,12 +209,12 @@ Both implementations share these characteristics:
 9. API → Client: Resource + tx hash
 ```
 
-### @adipundir/aptos-x402 Flow
+### @adipundir/BNB-x402 Flow
 
 ```
 1. Client → API: GET /resource
 2. API → Client: 402 (APT amount, recipient)
-3. Client: Build Aptos transaction
+3. Client: Build BNB transaction
 4. Client: Sign with Ed25519
 5. Client → API: Retry with X-PAYMENT (tx + sig)
 6. API → Facilitator: Verify
@@ -229,7 +229,7 @@ Both implementations share these characteristics:
 
 ## Performance Considerations
 
-Both implementations follow a similar request → pay → retry pattern. Actual timings depend on network conditions and chain congestion. The Aptos flow verifies off-chain, then settles on-chain before returning the resource.
+Both implementations follow a similar request → pay → retry pattern. Actual timings depend on network conditions and chain congestion. The BNB flow verifies off-chain, then settles on-chain before returning the resource.
 
 ## Code Complexity
 
@@ -238,7 +238,7 @@ Both implementations follow a similar request → pay → retry pattern. Actual 
 - Well-documented EVM standards
 - Many examples available
 
-**@adipundir/aptos-x402:** ⭐⭐⭐⭐
+**@adipundir/BNB-x402:** ⭐⭐⭐⭐
 - Clean API design
 - Comprehensive documentation
 - Interactive demos included
@@ -251,24 +251,24 @@ Both implementations follow a similar request → pay → retry pattern. Actual 
 - You want maximum ecosystem support
 - Dollar-denominated pricing is important
 
-### Use @adipundir/aptos-x402 when:
-- You're building on Aptos
+### Use @adipundir/BNB-x402 when:
+- You're building on BNB
 - You want Move-based smart contracts
 - You prefer Ed25519 cryptography
 - You want lower transaction fees
-- You're targeting Aptos ecosystem
+- You're targeting BNB ecosystem
 
 ## Migration Path
 
-If you're familiar with Coinbase x402, migrating to @adipundir/aptos-x402 is straightforward:
+If you're familiar with Coinbase x402, migrating to @adipundir/BNB-x402 is straightforward:
 
 1. **Change blockchain SDK:**
    ```typescript
    // From: viem
    import { createWalletClient } from "viem";
    
-   // To: @aptos-labs/ts-sdk
-   import { Account, Ed25519PrivateKey } from "@aptos-labs/ts-sdk";
+   // To: @BNB-labs/ts-sdk
+   import { Account, Ed25519PrivateKey } from "@BNB-labs/ts-sdk";
    ```
 
 2. **Update wrapper imports:**
@@ -276,8 +276,8 @@ If you're familiar with Coinbase x402, migrating to @adipundir/aptos-x402 is str
    // From: x402-axios
    import { withPaymentInterceptor } from "x402-axios";
    
-  // To: @adipundir/aptos-x402
-  import { x402axios } from "@adipundir/aptos-x402";
+  // To: @adipundir/BNB-x402
+  import { x402axios } from "@adipundir/BNB-x402";
    ```
 
 3. **Adjust configuration:**
@@ -285,7 +285,7 @@ If you're familiar with Coinbase x402, migrating to @adipundir/aptos-x402 is str
    // From: EVM chain config
    { chain: baseSepolia, transport: http() }
    
-   // To: Aptos network
+   // To: BNB network
    { network: 'testnet' }
    ```
 
@@ -307,7 +307,7 @@ If you're familiar with Coinbase x402, migrating to @adipundir/aptos-x402 is str
 - 🚧 More chains (in progress)
 - 🚧 MCP integration (in progress)
 
-### @adipundir/aptos-x402
+### @adipundir/BNB-x402
 - ✓ Basic implementation (complete)
 - ✓ HTTP wrappers (complete)
 - ✓ Facilitator service (complete)
@@ -320,7 +320,7 @@ If you're familiar with Coinbase x402, migrating to @adipundir/aptos-x402 is str
 Both implementations are production-ready and follow the x402 protocol specification. Choose based on your blockchain ecosystem:
 
 - **Ethereum/Base ecosystem** → Use Coinbase x402
-- **Aptos ecosystem** → Use @adipundir/aptos-x402
+- **BNB ecosystem** → Use @adipundir/BNB-x402
 
 The core concepts and developer experience are nearly identical, making it easy to work with either implementation.
 
@@ -331,8 +331,8 @@ The core concepts and developer experience are nearly identical, making it easy 
 - GitHub: https://github.com/coinbase/x402
 - Discord: https://discord.gg/x402
 
-### @adipundir/aptos-x402
-- GitHub: https://github.com/adipundir/aptos-x402
-- Demo: https://aptos-x402.vercel.app
-- NPM: https://www.npmjs.com/package/@adipundir/aptos-x402
+### @adipundir/BNB-x402
+- GitHub: https://github.com/adipundir/BNB-x402
+- Demo: https://BNB-x402.vercel.app
+- NPM: https://www.npmjs.com/package/@adipundir/BNB-x402
 

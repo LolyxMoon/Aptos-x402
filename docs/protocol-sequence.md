@@ -1,4 +1,4 @@
-# x402 Protocol Sequence Diagram (Aptos)
+# x402 Protocol Sequence Diagram (BNB)
 
 ## Flow Diagram
 
@@ -7,22 +7,22 @@ sequenceDiagram
     participant Client
     participant Server
     participant Facilitator
-    participant Aptos
+    participant BNB
 
-    Note over Client,Aptos: Step 1: Initial Request (No Payment)
+    Note over Client,BNB: Step 1: Initial Request (No Payment)
     Client->>Server: GET /api/protected/weather
     Server->>Client: 402 Payment Required<br/>{x402Version, accepts: [paymentRequirements]}
 
-    Note over Client,Aptos: Step 2: Client Signs Transaction (Offline)
-    Client->>Client: Build Aptos transfer transaction<br/>0x1::aptos_account::transfer
+    Note over Client,BNB: Step 2: Client Signs Transaction (Offline)
+    Client->>Client: Build BNB transfer transaction<br/>0x1::BNB_account::transfer
     Client->>Client: Sign transaction with private key<br/>(creates AccountAuthenticator)
     Client->>Client: Serialize to BCS (transaction + signature)<br/>Base64 encode both components
     Client->>Client: Create PaymentPayload<br/>{x402Version, scheme: "exact", network, payload}
 
-    Note over Client,Aptos: Step 3: Request with Payment
+    Note over Client,BNB: Step 3: Request with Payment
     Client->>Server: GET /api/protected/weather<br/>Header: X-PAYMENT (b64 PaymentPayload)
 
-    Note over Client,Aptos: Step 4: Verify Payment (Fast, No Blockchain)
+    Note over Client,BNB: Step 4: Verify Payment (Fast, No Blockchain)
     Server->>Facilitator: POST /verify<br/>{x402Version, paymentHeader, paymentRequirements}
     Facilitator->>Facilitator: Decode PaymentPayload from base64
     Facilitator->>Facilitator: Extract signature & transaction (BCS bytes)
@@ -32,24 +32,24 @@ sequenceDiagram
     
     Note over Server: Verification passed (~10-50ms)
 
-    Note over Client,Aptos: Step 5: Settle Payment (Slow, Blockchain Interaction)
+    Note over Client,BNB: Step 5: Settle Payment (Slow, Blockchain Interaction)
     Server->>Facilitator: POST /settle<br/>{x402Version, paymentHeader, paymentRequirements}
     Facilitator->>Facilitator: Decode PaymentPayload
     Facilitator->>Facilitator: Deserialize BCS to SDK objects<br/>(SimpleTransaction + AccountAuthenticator)
-    Facilitator->>Aptos: aptos.transaction.submit.simple()<br/>(sender pays gas)
-    Aptos->>Aptos: Validate transaction on-chain
-    Aptos->>Aptos: Execute transfer (0x1::aptos_account::transfer)
-    Aptos->>Aptos: Confirm transaction in block (~1-3 seconds)
-    Aptos->>Facilitator: Transaction confirmed<br/>{hash: "0x...", success: true}
+    Facilitator->>BNB: BNB.transaction.submit.simple()<br/>(sender pays gas)
+    BNB->>BNB: Validate transaction on-chain
+    BNB->>BNB: Execute transfer (0x1::BNB_account::transfer)
+    BNB->>BNB: Confirm transaction in block (~1-3 seconds)
+    BNB->>Facilitator: Transaction confirmed<br/>{hash: "0x...", success: true}
     Facilitator->>Server: {success: true, txHash, networkId}<br/>+ X-Settlement-Time header
 
     Note over Server: Settlement complete (~1000-3000ms)
 
-    Note over Client,Aptos: Step 6: Deliver Resource
+    Note over Client,BNB: Step 6: Deliver Resource
     Server->>Server: Execute API handler<br/>(deliver weather data)
     Server->>Client: 200 OK + Resource<br/>Header: X-PAYMENT-RESPONSE (settlement details)<br/>+ X-Verification-Time + X-Settlement-Time
 
-    Note over Client: Total time: ~1-3 seconds<br/>Payment confirmed on Aptos blockchain
+    Note over Client: Total time: ~1-3 seconds<br/>Payment confirmed on BNB blockchain
 ```
 
 ## Timing Breakdown
@@ -57,30 +57,30 @@ sequenceDiagram
 | Step | Duration | Description |
 |------|----------|-------------|
 | **1. Initial 402** | ~10-50ms | Server returns payment requirements |
-| **2. Sign Transaction** | ~50-200ms | Client creates and signs Aptos transaction offline |
+| **2. Sign Transaction** | ~50-200ms | Client creates and signs BNB transaction offline |
 | **3. Verification** | ~10-50ms | Facilitator validates payment structure (no blockchain) |
-| **4. Settlement** | ~1000-3000ms | Facilitator submits to Aptos & waits for confirmation |
+| **4. Settlement** | ~1000-3000ms | Facilitator submits to BNB & waits for confirmation |
 | **5. API Processing** | ~10-100ms | Server executes business logic and delivers resource |
 | **Total (with payment)** | ~1100-3400ms | End-to-end payment flow |
 
 ## Key Differences from EVM x402
 
-| Aspect | EVM (Ethereum/Base) | Aptos |
+| Aspect | EVM (Ethereum/Base) | BNB |
 |--------|---------------------|-------|
 | **Encoding** | EIP-712 signatures | BCS (Binary Canonical Serialization) |
-| **Transaction Function** | ERC-20 transfer / native send | `0x1::aptos_account::transfer` |
+| **Transaction Function** | ERC-20 transfer / native send | `0x1::BNB_account::transfer` |
 | **Settlement Time** | ~12-15 seconds | ~1-3 seconds |
 | **Gas Payment** | Various patterns | Client pays (Pattern A) |
 | **Signature Format** | ECDSA (secp256k1) | Ed25519 |
-| **SDK** | ethers.js / viem | @aptos-labs/ts-sdk |
+| **SDK** | ethers.js / viem | @BNB-labs/ts-sdk |
 
-## Payment Payload Structure (Aptos)
+## Payment Payload Structure (BNB)
 
 ```json
 {
   "x402Version": 1,
   "scheme": "exact",
-  "network": "aptos-testnet",
+  "network": "BNB-testnet",
   "payload": {
     "signature": "base64-encoded-BCS-AccountAuthenticator",
     "transaction": "base64-encoded-BCS-RawTransaction"
@@ -106,11 +106,11 @@ The settlement step interacts with the blockchain:
 
 1. Decode and deserialize BCS components
 2. Reconstruct SDK objects (SimpleTransaction + AccountAuthenticator)
-3. Submit using `aptos.transaction.submit.simple()`
+3. Submit using `BNB.transaction.submit.simple()`
 4. Wait for blockchain confirmation
 5. Verify transaction succeeded on-chain
 
-**Result:** ~1-3 seconds (Aptos testnet/mainnet)
+**Result:** ~1-3 seconds (BNB testnet/mainnet)
 
 ## Error Handling
 
@@ -168,7 +168,7 @@ If settlement fails at any point, **no resource is delivered**.
 
 ### Facilitator (Internal Endpoints)
 - `/verify`: Validates payment structure offline
-- `/settle`: Submits transaction using Aptos SDK
+- `/settle`: Submits transaction using BNB SDK
 - Tracks timing for each operation
 - Returns detailed error messages
 
@@ -178,7 +178,7 @@ If settlement fails at any point, **no resource is delivered**.
 
 ```typescript
 // Client signs, facilitator broadcasts
-await aptos.transaction.submit.simple({
+await BNB.transaction.submit.simple({
   transaction,        // Signed by client
   senderAuthenticator // Client's signature
 });
@@ -189,7 +189,7 @@ await aptos.transaction.submit.simple({
 
 ```typescript
 // Facilitator pays gas instead
-await aptos.signAndSubmitAsFeePayer({
+await BNB.signAndSubmitAsFeePayer({
   senderAuthenticator, // Client's signature
   feePayer,           // Facilitator's account
   transaction
@@ -200,7 +200,7 @@ await aptos.signAndSubmitAsFeePayer({
 ## References
 
 - [x402 Protocol Specification](https://github.com/coinbase/x402)
-- [Aptos Transaction Lifecycle](https://aptos.dev/concepts/txns-states)
+- [BNB Transaction Lifecycle](https://BNB.dev/concepts/txns-states)
 - [BCS Specification](https://docs.rs/bcs/latest/bcs/)
-- [Scheme Documentation](../specs/schemes/aptos-exact.md)
+- [Scheme Documentation](../specs/schemes/BNB-exact.md)
 

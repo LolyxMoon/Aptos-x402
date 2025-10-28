@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-The x402 payment protocol for Aptos consists of three main components:
+The x402 payment protocol for BNB consists of three main components:
 
 ```
 ┌─────────────────┐
@@ -30,7 +30,7 @@ The x402 payment protocol for Aptos consists of three main components:
          │
          ▼
 ┌─────────────────┐
-│ Aptos Blockchain│  - Records transactions
+│ BNB Blockchain│  - Records transactions
 │                 │  - Processes payments
 └─────────────────┘
 ```
@@ -41,7 +41,7 @@ The x402 payment protocol for Aptos consists of three main components:
 
 ```
 ┌─────────┐         ┌──────────────┐         ┌─────────────┐         ┌─────────┐
-│ Client  │         │ Protected API│         │ Facilitator │         │ Aptos   │
+│ Client  │         │ Protected API│         │ Facilitator │         │ BNB   │
 └────┬────┘         └──────┬───────┘         └──────┬──────┘         └────┬────┘
      │                     │                        │                      │
      │ 1. GET /weather    │                        │                      │
@@ -56,7 +56,7 @@ The x402 payment protocol for Aptos consists of three main components:
      │   "x402Version": 1 │                        │                      │
      │   "accepts": [{    │                        │                      │
      │     "scheme": "exact"                       │                      │
-     │     "network": "aptos-testnet"              │                      │
+     │     "network": "BNB-testnet"              │                      │
      │     "maxAmountRequired": "1000000"          │                      │
      │     "payTo": "0x..."                        │                      │
      │   }]               │                        │                      │
@@ -97,7 +97,7 @@ The x402 payment protocol for Aptos consists of three main components:
      │                     │                        │                      │
      │                     │                        │ 8. Submit TX        │
      │                     │                        ├────────────────────>│
-     │                     │                        │ aptos.transaction   │
+     │                     │                        │ BNB.transaction   │
      │                     │                        │   .submit.simple()  │
      │                     │                        │                      │
      │                     │                        │                      │ Execute
@@ -140,21 +140,21 @@ The x402 payment protocol for Aptos consists of three main components:
 
 ```typescript
 // Step 1: Build transaction
-const transaction = await aptos.transaction.build.simple({
+const transaction = await BNB.transaction.build.simple({
   sender: account.accountAddress,
   data: {
-    function: "0x1::aptos_account::transfer",
+    function: "0x1::BNB_account::transfer",
     functionArguments: [recipientAddress, amountOctas]
   }
 });
 
 // Step 2: Sign transaction (creates AccountAuthenticator)
-const senderAuthenticator = aptos.transaction.sign({
+const senderAuthenticator = BNB.transaction.sign({
   signer: account,
   transaction
 });
 
-// Step 3: Serialize separately (Aptos x402 format)
+// Step 3: Serialize separately (BNB x402 format)
 const transactionBytes = transaction.bcsToBytes();      // BCS
 const signatureBytes = senderAuthenticator.bcsToBytes(); // BCS
 
@@ -166,7 +166,7 @@ const signatureBase64 = Buffer.from(signatureBytes).toString('base64');
 const paymentPayload = {
   x402Version: 1,
   scheme: "exact",
-  network: "aptos-testnet",
+  network: "BNB-testnet",
   payload: {
     transaction: transactionBase64,  // Separate!
     signature: signatureBase64       // Separate!
@@ -179,7 +179,7 @@ const X_PAYMENT = Buffer.from(JSON.stringify(paymentPayload)).toString('base64')
 
 **Key Points:**
 - Transaction and signature are serialized **separately** (like Sui)
-- Uses BCS (Binary Canonical Serialization) - Aptos standard
+- Uses BCS (Binary Canonical Serialization) - BNB standard
 - Transaction is **signed but NOT submitted** by client
 - Client never touches the blockchain directly
 
@@ -216,7 +216,7 @@ export function paymentMiddleware(
         x402Version: 1,
         accepts: [{
           scheme: "exact",
-          network: "aptos-testnet",
+          network: "BNB-testnet",
           maxAmountRequired: routeConfig.price,
           payTo: recipientAddress,
           // ... other fields
@@ -287,7 +287,7 @@ POST /api/facilitator/verify
   "paymentHeader": "base64...",
   "paymentRequirements": {
     "scheme": "exact",
-    "network": "aptos-testnet",
+    "network": "BNB-testnet",
     "maxAmountRequired": "1000000",
     "payTo": "0x..."
   }
@@ -300,7 +300,7 @@ POST /api/facilitator/verify
 3. Decode transaction and signature from base64
 4. Verify BCS format is valid
 5. Check scheme matches ("exact")
-6. Check network matches ("aptos-testnet")
+6. Check network matches ("BNB-testnet")
 7. **Does NOT submit to blockchain**
 
 **Response:**
@@ -339,14 +339,14 @@ POST /api/facilitator/settle
    ```
 4. **Submit** to blockchain:
    ```typescript
-   const committed = await aptos.transaction.submit.simple({
+   const committed = await BNB.transaction.submit.simple({
      transaction,
      senderAuthenticator
    });
    ```
 5. **Wait** for confirmation:
    ```typescript
-   await aptos.waitForTransaction({ transactionHash: committed.hash });
+   await BNB.waitForTransaction({ transactionHash: committed.hash });
    ```
 6. Verify transaction succeeded on blockchain
 
@@ -356,13 +356,13 @@ POST /api/facilitator/settle
   "success": true,
   "error": null,
   "txHash": "0x2e39909...",
-  "networkId": "aptos-testnet"
+  "networkId": "BNB-testnet"
 }
 ```
 
 **Timing:** ~2-5 seconds (includes blockchain confirmation)
 
-### 4. Aptos Blockchain
+### 4. BNB Blockchain
 
 **Role:** Execute and record transactions
 
@@ -370,7 +370,7 @@ POST /api/facilitator/settle
 1. Receive transaction from facilitator
 2. Validate signature
 3. Check sender has sufficient balance
-4. Execute `0x1::aptos_account::transfer`
+4. Execute `0x1::BNB_account::transfer`
 5. Deduct from sender balance
 6. Add to recipient balance
 7. Update sender sequence number
@@ -379,7 +379,7 @@ POST /api/facilitator/settle
 
 **Transaction Structure:**
 ```rust
-// Aptos Move function being called
+// BNB Move function being called
 public entry fun transfer(
     sender: &signer,
     to: address,
@@ -391,7 +391,7 @@ public entry fun transfer(
 
 ### Why Separate Transaction and Signature?
 
-Aptos uses a two-part format similar to Sui:
+BNB uses a two-part format similar to Sui:
 
 ```typescript
 {
@@ -403,17 +403,17 @@ Aptos uses a two-part format similar to Sui:
 **Benefits:**
 1. **Flexibility**: Can inspect transaction without signature
 2. **Security**: Signature can be validated independently
-3. **Compatibility**: Matches Aptos SDK architecture
-4. **Standard**: Follows Aptos BCS serialization patterns
+3. **Compatibility**: Matches BNB SDK architecture
+4. **Standard**: Follows BNB BCS serialization patterns
 
 ### BCS Serialization
 
-**BCS (Binary Canonical Serialization)** is Aptos's standard for data serialization:
+**BCS (Binary Canonical Serialization)** is BNB's standard for data serialization:
 
 - **Deterministic**: Same data always produces same bytes
 - **Compact**: Efficient binary format
 - **Type-safe**: Preserves type information
-- **Standard**: Used throughout Aptos ecosystem
+- **Standard**: Used throughout BNB ecosystem
 
 ```typescript
 // Serialization
@@ -460,7 +460,7 @@ Client must protect private key:
 
 ### 2. Transaction Replay Protection
 
-Aptos prevents replay attacks via sequence numbers:
+BNB prevents replay attacks via sequence numbers:
 - Each account has incrementing sequence number
 - Transaction includes sequence number
 - Blockchain rejects transactions with old sequence numbers
