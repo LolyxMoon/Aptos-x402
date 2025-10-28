@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aptos x402 - HTTP 402 Payment Protocol",
-  description: "First x402 implementation on Aptos blockchain. Add blockchain payments to your Next.js APIs with simple middleware configuration.",
+  title: "Sofia x402 - HTTP 402 Payment Protocol",
+  description: "First AI Agent with Eliza Framework x402 implementation on BNB blockchain. Add blockchain payments to your Next.js APIs with simple middleware configuration.",
 };
 
 export default function RootLayout({

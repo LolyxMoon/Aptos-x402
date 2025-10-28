@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { x402axios } from "../../lib/x402-axios";
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
