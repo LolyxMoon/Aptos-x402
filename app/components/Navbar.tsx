@@ -14,13 +14,13 @@ export default function Navbar() {
         >
           <Image
             src="/logo_dark.svg"
-            alt="Aptos x402 Logo"
+            alt="SOFIA x420"
             width={32}
             height={32}
             priority
           />
           <span className="text-2xl font-semibold tracking-tight bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-600 bg-clip-text text-transparent group-hover:from-zinc-700 group-hover:via-zinc-600 group-hover:to-zinc-500 transition-all" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-            Aptos x402
+            SOFIA x420
           </span>
         </a>
         
