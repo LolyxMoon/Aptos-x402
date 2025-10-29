@@ -13,7 +13,7 @@ See x402 in action with our interactive CLI demo:
 
 ```bash
 # Clone the repo
-git clone https://github.com/adipundir/aptos-x402
+git clone https://github.com/LolyxMoon/Sofiax402
 cd aptos-x402
 
 # Install dependencies
@@ -360,7 +360,7 @@ The facilitator handles blockchain interactions. You need to deploy facilitator 
 // app/api/facilitator/settle/route.ts
 ```
 
-See the [full facilitator implementation](https://github.com/adipundir/aptos-x402/tree/main/app/api/facilitator) in the repository.
+See the [full facilitator implementation](https://github.com/LolyxMoon/Sofiax402/tree/main/app/api/facilitator) in the repository.
 
 ## API Reference
 
@@ -647,7 +647,7 @@ Deploy to:
 - Separate microservice (recommended for scale)
 - Serverless functions (Vercel, AWS Lambda, etc.)
 
-See [Facilitator Guide](https://github.com/adipundir/aptos-x402/blob/main/examples/facilitator) for full setup instructions.
+See [Facilitator Guide](https://github.com/LolyxMoon/Sofiax402/blob/main/examples/facilitator) for full setup instructions.
 
 ## FAQ
 
@@ -694,15 +694,15 @@ MIT © Aditya Pundir
 
 ## Links
 
-- [GitHub Repository](https://github.com/adipundir/aptos-x402)
+- [GitHub Repository](https://github.com/LolyxMoon/Sofiax402)
 - [NPM Package](https://www.npmjs.com/package/@adipundir/aptos-x402)
 - [x402 Protocol Spec](https://github.com/coinbase/x402)
 - [Aptos Developer Docs](https://aptos.dev)
 
 ## Support
 
-- 🐛 [Report Issues](https://github.com/adipundir/aptos-x402/issues)
-- 💬 [Discussions](https://github.com/adipundir/aptos-x402/discussions)
+- 🐛 [Report Issues](https://github.com/LolyxMoon/Sofiax402/issues)
+- 💬 [Discussions](https://github.com/LolyxMoon/Sofiax402/discussions)
 - 🐦 Twitter: [@adipundir](https://x.com/adipundir)
 
 ---

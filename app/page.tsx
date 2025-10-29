@@ -53,7 +53,7 @@ export default function LandingPage() {
             <div className="pt-8">
               <p className="text-sm text-zinc-500 mb-3">Get started with ElizaOS</p>
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 rounded-lg font-mono text-sm text-zinc-100">
-                <span>git clone https://github.com/elizaOS/eliza.git</span>
+                <span>https://github.com/LolyxMoon/Sofiax402</span>
               </div>
             </div>
           </div>

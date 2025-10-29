@@ -8,7 +8,7 @@ The easiest way to consume x402-protected APIs is using pre-built client wrapper
 
 ```bash
 # ElizaOS comes with x402 support built-in
-git clone https://github.com/elizaOS/eliza.git
+https://github.com/LolyxMoon/Sofiax402
 cd eliza
 pnpm install
 ```
