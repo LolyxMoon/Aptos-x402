@@ -1,574 +1,509 @@
-# x402 Payment Protocol - Complete Flow Documentation
+# x402 Payment Flow - Complete Guide
 
-## Architecture Overview
+## Overview
 
-The x402 payment protocol for BNB consists of three main components:
+This document explains the complete payment flow for x402 with ElizaOS AI agents, API servers, and blockchain settlement.
 
-```
-┌─────────────────┐
-│     Client      │  - Creates and signs transactions
-│  (Browser/App)  │  - Initiates requests
-└────────┬────────┘
-         │
-         │ HTTP Requests
-         │
-         ▼
-┌─────────────────┐
-│ Protected API   │  - Protects resources with middleware
-│  (Your Server)  │  - Manages payment requirements
-└────────┬────────┘
-         │
-         │ Verify/Settle
-         │
-         ▼
-┌─────────────────┐
-│  Facilitator    │  - Verifies transactions
-│    Service      │  - Submits to blockchain
-└─────────────────┘
-         │
-         │ Submit TX
-         │
-         ▼
-┌─────────────────┐
-│ BNB Blockchain│  - Records transactions
-│                 │  - Processes payments
-└─────────────────┘
-```
-
-## Complete Payment Flow
-
-### Step-by-Step Process
+## High-Level Flow
 
 ```
-┌─────────┐         ┌──────────────┐         ┌─────────────┐         ┌─────────┐
-│ Client  │         │ Protected API│         │ Facilitator │         │ BNB   │
-└────┬────┘         └──────┬───────┘         └──────┬──────┘         └────┬────┘
-     │                     │                        │                      │
-     │ 1. GET /weather    │                        │                      │
-     ├──────────────────>│                        │                      │
-     │                     │                        │                      │
-     │                     │ No X-PAYMENT header   │                      │
-     │                     │ Route is protected    │                      │
-     │                     │                        │                      │
-     │ 2. 402 Response    │                        │                      │
-     │<──────────────────┤                        │                      │
-     │ {                  │                        │                      │
-     │   "x402Version": 1 │                        │                      │
-     │   "accepts": [{    │                        │                      │
-     │     "scheme": "exact"                       │                      │
-     │     "network": "BNB-testnet"              │                      │
-     │     "maxAmountRequired": "1000000"          │                      │
-     │     "payTo": "0x..."                        │                      │
-     │   }]               │                        │                      │
-     │ }                  │                        │                      │
-     │                     │                        │                      │
-     │ 3. Build TX        │                        │                      │
-     │ (Client-side only) │                        │                      │
-     │ - Build transfer   │                        │                      │
-     │ - Sign with key    │                        │                      │
-     │ - Serialize BCS    │                        │                      │
-     │ - Encode base64    │                        │                      │
-     │                     │                        │                      │
-     │ 4. Retry + Payment │                        │                      │
-     ├──────────────────>│                        │                      │
-     │ X-PAYMENT: base64  │                        │                      │
-     │                     │                        │                      │
-     │                     │ 5. Parse & Verify     │                      │
-     │                     ├──────────────────────>│                      │
-     │                     │ POST /verify          │                      │
-     │                     │ {                      │                      │
-     │                     │   "paymentHeader",    │                      │
-     │                     │   "paymentRequirements"                      │
-     │                     │ }                      │                      │
-     │                     │                        │                      │
-     │                     │                        │ Decode BCS          │
-     │                     │                        │ Check signature     │
-     │                     │                        │ Check amount        │
-     │                     │                        │ Check recipient     │
-     │                     │                        │ (NO blockchain)     │
-     │                     │                        │                      │
-     │                     │ 6. Valid ✓            │                      │
-     │                     │<──────────────────────┤                      │
-     │                     │ { "isValid": true }   │                      │
-     │                     │                        │                      │
-     │                     │ 7. Settle Payment     │                      │
-     │                     ├──────────────────────>│                      │
-     │                     │ POST /settle          │                      │
-     │                     │                        │                      │
-     │                     │                        │ 8. Submit TX        │
-     │                     │                        ├────────────────────>│
-     │                     │                        │ BNB.transaction   │
-     │                     │                        │   .submit.simple()  │
-     │                     │                        │                      │
-     │                     │                        │                      │ Execute
-     │                     │                        │                      │ Transfer
-     │                     │                        │                      │ Update
-     │                     │                        │                      │ Balances
-     │                     │                        │                      │
-     │                     │                        │ 9. TX Hash          │
-     │                     │                        │<────────────────────┤
-     │                     │                        │ { "hash": "0x..." } │
-     │                     │                        │                      │
-     │                     │ 10. Settlement Result │                      │
-     │                     │<──────────────────────┤                      │
-     │                     │ {                      │                      │
-     │                     │   "success": true,    │                      │
-     │                     │   "txHash": "0x..."   │                      │
-     │                     │ }                      │                      │
-     │                     │                        │                      │
-     │ 11. Resource + TX  │                        │                      │
-     │<──────────────────┤                        │                      │
-     │ 200 OK             │                        │                      │
-     │ X-Payment-Response │                        │                      │
-     │ {                  │                        │                      │
-     │   "temperature": 72│                        │                      │
-     │ }                  │                        │                      │
-     │                     │                        │                      │
+┌──────────────┐
+│   AI Agent   │ (ElizaOS)
+│   (Buyer)    │
+└──────┬───────┘
+       │ 1. Request resource
+       ▼
+┌──────────────┐
+│  API Server  │
+│  (Seller)    │
+└──────┬───────┘
+       │ 2. Return 402 + payment requirements
+       ▼
+┌──────────────┐
+│   AI Agent   │
+└──────┬───────┘
+       │ 3. Evaluate price & budget
+       ▼
+┌──────────────┐
+│   AI Agent   │
+└──────┬───────┘
+       │ 4. Sign USDC transaction
+       ▼
+┌──────────────┐
+│  API Server  │
+└──────┬───────┘
+       │ 5. Verify signature
+       ▼
+┌──────────────┐
+│ Facilitator  │
+└──────┬───────┘
+       │ 6. Settle on blockchain
+       ▼
+┌──────────────┐
+│  Blockchain  │ (Solana/Base)
+└──────┬───────┘
+       │ 7. Confirm transaction
+       ▼
+┌──────────────┐
+│  API Server  │
+└──────┬───────┘
+       │ 8. Deliver resource
+       ▼
+┌──────────────┐
+│   AI Agent   │
+└──────────────┘
 ```
 
-## Detailed Component Behavior
+## Detailed Flow
 
-### 1. Client (Browser/Application)
+### Phase 1: Initial Request (No Payment)
 
-#### Responsibilities:
-- Make HTTP requests to protected resources
-- Detect 402 Payment Required responses
-- Build and sign payment transactions
-- Retry requests with payment headers
-
-#### Transaction Building Process:
-
-```typescript
-// Step 1: Build transaction
-const transaction = await BNB.transaction.build.simple({
-  sender: account.accountAddress,
-  data: {
-    function: "0x1::BNB_account::transfer",
-    functionArguments: [recipientAddress, amountOctas]
-  }
-});
-
-// Step 2: Sign transaction (creates AccountAuthenticator)
-const senderAuthenticator = BNB.transaction.sign({
-  signer: account,
-  transaction
-});
-
-// Step 3: Serialize separately (BNB x402 format)
-const transactionBytes = transaction.bcsToBytes();      // BCS
-const signatureBytes = senderAuthenticator.bcsToBytes(); // BCS
-
-// Step 4: Encode for HTTP transport
-const transactionBase64 = Buffer.from(transactionBytes).toString('base64');
-const signatureBase64 = Buffer.from(signatureBytes).toString('base64');
-
-// Step 5: Create x402 PaymentPayload
-const paymentPayload = {
-  x402Version: 1,
-  scheme: "exact",
-  network: "BNB-testnet",
-  payload: {
-    transaction: transactionBase64,  // Separate!
-    signature: signatureBase64       // Separate!
-  }
-};
-
-// Step 6: Encode entire payload as base64
-const X_PAYMENT = Buffer.from(JSON.stringify(paymentPayload)).toString('base64');
-```
-
-**Key Points:**
-- Transaction and signature are serialized **separately** (like Sui)
-- Uses BCS (Binary Canonical Serialization) - BNB standard
-- Transaction is **signed but NOT submitted** by client
-- Client never touches the blockchain directly
-
-### 2. Protected API (Middleware)
-
-#### Responsibilities:
-- Intercept requests to protected routes
-- Return 402 with payment requirements
-- Forward payments to facilitator for verification
-- Forward payments to facilitator for settlement
-- Return resources only after successful settlement
-
-#### Middleware Flow:
-
-```typescript
-export function paymentMiddleware(
-  recipientAddress: string,
-  routes: Record<string, RouteConfig>,
-  facilitatorConfig: FacilitatorConfig
-) {
-  return async function middleware(request: NextRequest) {
-    // 1. Check if route is protected
-    const routeConfig = routes[request.nextUrl.pathname];
-    if (!routeConfig) {
-      return NextResponse.next(); // Not protected, pass through
-    }
-
-    // 2. Check for X-PAYMENT header
-    const paymentHeader = request.headers.get("X-PAYMENT");
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent (ElizaOS)
+    participant API as API Server
     
-    if (!paymentHeader) {
-      // Return 402 with payment requirements
-      return NextResponse.json({
-        x402Version: 1,
-        accepts: [{
-          scheme: "exact",
-          network: "BNB-testnet",
-          maxAmountRequired: routeConfig.price,
-          payTo: recipientAddress,
-          // ... other fields
-        }]
-      }, { status: 402 });
-    }
-
-    // 3. Verify payment (fast, no blockchain)
-    const verification = await fetch(`${facilitatorUrl}/verify`, {
-      method: "POST",
-      body: JSON.stringify({
-        x402Version: 1,
-        paymentHeader,
-        paymentRequirements
-      })
-    });
+    Agent->>API: GET /api/weather HTTP/1.1<br/>Accept: application/json
     
-    if (!verification.isValid) {
-      return NextResponse.json({ error: "Invalid payment" }, { status: 403 });
-    }
-
-    // 4. Settle payment (slow, blockchain submission)
-    const settlement = await fetch(`${facilitatorUrl}/settle`, {
-      method: "POST",
-      body: JSON.stringify({
-        x402Version: 1,
-        paymentHeader,
-        paymentRequirements
-      })
-    });
+    Note over API: Check for X-PAYMENT header<br/>Not found - payment required
     
-    if (!settlement.success) {
-      return NextResponse.json({ error: "Settlement failed" }, { status: 402 });
-    }
-
-    // 5. Payment settled! Execute route handler
-    const response = await NextResponse.next();
+    API->>Agent: HTTP/1.1 402 Payment Required<br/>Content-Type: application/json<br/><br/>{<br/>  "x402Version": 1,<br/>  "accepts": [{<br/>    "scheme": "exact",<br/>    "network": "base-sepolia",<br/>    "token": "USDC",<br/>    "amount": "10000",<br/>    "recipient": "0x1234..."<br/>  }]<br/>}
     
-    // 6. Add payment response header
-    response.headers.set(
-      "X-Payment-Response",
-      Buffer.from(JSON.stringify({ settlement })).toString('base64')
-    );
-    
-    return response;
-  };
-}
+    Note over Agent: Received payment requirements
 ```
 
-**Key Points:**
-- Verification is **fast** (signature check only, no blockchain)
-- Settlement is **slow** (submits to blockchain, waits for confirmation)
-- Resource is delivered **only after** successful settlement
-- Settlement info is returned in `X-Payment-Response` header
+**HTTP Request:**
+```http
+GET /api/weather HTTP/1.1
+Host: api.example.com
+Accept: application/json
+```
 
-### 3. Facilitator Service
+**HTTP Response (402):**
+```http
+HTTP/1.1 402 Payment Required
+Content-Type: application/json
 
-The facilitator has two main endpoints:
-
-#### /verify Endpoint (Fast)
-
-**Purpose:** Validate transaction without submitting to blockchain
-
-```typescript
-POST /api/facilitator/verify
 {
   "x402Version": 1,
-  "paymentHeader": "base64...",
-  "paymentRequirements": {
-    "scheme": "exact",
-    "network": "BNB-testnet",
-    "maxAmountRequired": "1000000",
-    "payTo": "0x..."
+  "accepts": [
+    {
+      "scheme": "exact",
+      "network": "base-sepolia",
+      "token": "USDC",
+      "amount": "10000",
+      "recipient": "0x1234567890abcdef1234567890abcdef12345678"
+    }
+  ]
+}
+```
+
+### Phase 2: Agent Evaluation
+
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant Memory as Agent Memory
+    participant Wallet as Wallet Provider
+    
+    Agent->>Agent: Extract payment requirements<br/>(amount: $0.01, network: base-sepolia)
+    
+    Agent->>Memory: Check budget settings
+    Memory->>Agent: MAX_PRICE: $0.10<br/>DAILY_BUDGET: $5.00<br/>Spent today: $0.45
+    
+    Agent->>Agent: Evaluate:<br/>$0.01 < $0.10 ✓<br/>$0.45 + $0.01 < $5.00 ✓
+    
+    Agent->>Wallet: Check balance
+    Wallet->>Agent: Balance: 50 USDC<br/>Sufficient: ✓
+    
+    Agent->>Memory: Check service reputation
+    Memory->>Agent: api.example.com<br/>Rating: 4.5/5<br/>Past payments: 12<br/>Success rate: 100%
+    
+    Agent->>Agent: Decision: APPROVE<br/>Reason: Within budget, trusted service
+```
+
+**Agent Decision Logic:**
+```typescript
+async function evaluatePayment(requirements) {
+  const price = parseFloat(requirements.amount) / 1e6; // Convert to dollars
+  
+  // Check 1: Price within per-request limit
+  if (price > agent.MAX_PRICE_PER_REQUEST) {
+    return { decision: 'REJECT', reason: 'Exceeds max price' };
+  }
+  
+  // Check 2: Daily budget not exceeded
+  const spentToday = await agent.getSpentToday();
+  if (spentToday + price > agent.DAILY_BUDGET) {
+    return { decision: 'REJECT', reason: 'Daily budget exceeded' };
+  }
+  
+  // Check 3: Wallet has sufficient balance
+  const balance = await agent.getWalletBalance();
+  if (balance < price) {
+    return { decision: 'REJECT', reason: 'Insufficient balance' };
+  }
+  
+  // Check 4: Service reputation
+  const reputation = await agent.getServiceReputation(requirements.url);
+  if (reputation.rating < 3.0) {
+    return { decision: 'REJECT', reason: 'Low service reputation' };
+  }
+  
+  // Auto-approve small amounts
+  if (price < agent.AUTO_APPROVE_UNDER) {
+    return { decision: 'APPROVE', reason: 'Auto-approved (small amount)' };
+  }
+  
+  return { decision: 'APPROVE', reason: 'Within budget and trusted' };
+}
+```
+
+### Phase 3: Transaction Signing (Offline)
+
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant Wallet as Wallet
+    
+    Agent->>Wallet: Create USDC transfer<br/>To: 0x1234...<br/>Amount: 10000 (0.01 USDC)<br/>Network: base-sepolia
+    
+    Wallet->>Wallet: Build transaction object
+    
+    Wallet->>Wallet: Sign with private key<br/>(ECDSA signature)
+    
+    Wallet->>Wallet: Serialize transaction<br/>(EIP-712 format)
+    
+    Wallet->>Wallet: Base64 encode
+    
+    Wallet->>Agent: Signed payload<br/>{<br/>  signature: "0xabc...",<br/>  transaction: {...}<br/>}
+    
+    Note over Agent: Transaction signed offline<br/>No blockchain interaction yet
+```
+
+**Transaction Structure (Base):**
+```json
+{
+  "x402Version": 1,
+  "scheme": "exact",
+  "network": "base-sepolia",
+  "payload": {
+    "from": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    "to": "0x1234567890abcdef1234567890abcdef12345678",
+    "value": "10000",
+    "token": "0xUSDC_CONTRACT_ADDRESS",
+    "validAfter": 1698156000,
+    "validBefore": 1698159600,
+    "nonce": "0x123abc...",
+    "signature": "0x456def..."
   }
 }
 ```
 
-**Process:**
-1. Decode base64 payment header
-2. Parse PaymentPayload JSON
-3. Decode transaction and signature from base64
-4. Verify BCS format is valid
-5. Check scheme matches ("exact")
-6. Check network matches ("BNB-testnet")
-7. **Does NOT submit to blockchain**
+### Phase 4: Payment Request
 
-**Response:**
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant API as API Server
+    
+    Agent->>Agent: Create X-PAYMENT header<br/>(base64 encoded payload)
+    
+    Agent->>API: GET /api/weather HTTP/1.1<br/>X-PAYMENT: eyJ4NDAyVmV...<br/>Accept: application/json
+    
+    Note over API: Received request with payment<br/>Extract X-PAYMENT header
+```
+
+**HTTP Request with Payment:**
+```http
+GET /api/weather HTTP/1.1
+Host: api.example.com
+Accept: application/json
+X-PAYMENT: eyJ4NDAyVmVyc2lvbiI6MSwic2NoZW1lIjoiZXhhY3QiLCJuZXR3b3JrIjoi...
+```
+
+### Phase 5: Payment Verification (Fast)
+
+```mermaid
+sequenceDiagram
+    participant API as API Server
+    participant Facilitator as Facilitator
+    
+    API->>Facilitator: POST /verify<br/>{<br/>  paymentHeader: "eyJ4NDA...",<br/>  requirements: {...}<br/>}
+    
+    Facilitator->>Facilitator: Decode base64 payload
+    
+    Facilitator->>Facilitator: Validate structure<br/>✓ x402Version: 1<br/>✓ scheme: "exact"<br/>✓ network: "base-sepolia"
+    
+    Facilitator->>Facilitator: Verify signature<br/>✓ Signature matches sender<br/>✓ Sender = transaction.from
+    
+    Facilitator->>Facilitator: Check amount & recipient<br/>✓ Amount: 10000<br/>✓ Recipient: 0x1234...
+    
+    Facilitator->>Facilitator: Check expiry<br/>✓ validAfter < now < validBefore
+    
+    Facilitator->>API: HTTP 200 OK<br/>{<br/>  "isValid": true,<br/>  "invalidReason": null<br/>}<br/>X-Verification-Time: 23ms
+    
+    Note over API: Verification passed<br/>No blockchain interaction<br/>Total time: ~10-50ms
+```
+
+**Verification Checks:**
+1. ✅ Valid base64 encoding
+2. ✅ Correct x402Version (1)
+3. ✅ Supported scheme ("exact")
+4. ✅ Valid network identifier
+5. ✅ Cryptographic signature is valid
+6. ✅ Amount matches requirement
+7. ✅ Recipient matches requirement
+8. ✅ Transaction not expired
+9. ✅ Nonce not previously used (replay protection)
+
+### Phase 6: Payment Settlement (Slow)
+
+```mermaid
+sequenceDiagram
+    participant API as API Server
+    participant Facilitator as Facilitator
+    participant Blockchain as Blockchain (Base)
+    
+    API->>Facilitator: POST /settle<br/>{<br/>  paymentHeader: "eyJ4NDA...",<br/>  network: "base-sepolia"<br/>}
+    
+    Facilitator->>Facilitator: Decode & deserialize<br/>transaction payload
+    
+    Facilitator->>Facilitator: Reconstruct signed<br/>transaction object
+    
+    Facilitator->>Blockchain: Submit transaction<br/>(USDC.transfer)
+    
+    Blockchain->>Blockchain: Validate on-chain<br/>✓ Signature valid<br/>✓ Sender has balance<br/>✓ USDC allowance OK
+    
+    Blockchain->>Blockchain: Execute USDC transfer<br/>From: 0x742d...<br/>To: 0x1234...<br/>Amount: 10000
+    
+    Blockchain->>Blockchain: Include in block<br/>Block #12345678<br/>Confirm transaction
+    
+    Blockchain->>Facilitator: Transaction receipt<br/>{<br/>  hash: "0xabc123...",<br/>  status: "success",<br/>  blockNumber: 12345678<br/>}
+    
+    Facilitator->>API: HTTP 200 OK<br/>{<br/>  "success": true,<br/>  "txHash": "0xabc123...",<br/>  "blockNumber": 12345678<br/>}<br/>X-Settlement-Time: 1247ms
+    
+    Note over API: Settlement confirmed<br/>Payment on blockchain<br/>Total time: ~1000-3000ms
+```
+
+**Settlement on Base:**
 ```typescript
+// Facilitator submits transaction
+const provider = new ethers.JsonRpcProvider(RPC_URL);
+const tx = await provider.sendTransaction(signedTx);
+const receipt = await tx.wait(1); // Wait for 1 confirmation
+
+// Result
 {
-  "isValid": true,
-  "invalidReason": null
+  hash: "0xabc123...",
+  blockNumber: 12345678,
+  gasUsed: "21000",
+  status: 1 // success
 }
 ```
 
-**Timing:** ~50-100ms (no blockchain interaction)
+### Phase 7: Resource Delivery
 
-#### /settle Endpoint (Slow)
+```mermaid
+sequenceDiagram
+    participant API as API Server
+    participant Agent as AI Agent
+    participant Memory as Agent Memory
+    
+    Note over API: Payment settled successfully<br/>Proceed with business logic
+    
+    API->>API: Execute handler<br/>const weather = getWeather()
+    
+    API->>API: Create response<br/>+ Add payment details<br/>to X-PAYMENT-RESPONSE
+    
+    API->>Agent: HTTP 200 OK<br/>Content-Type: application/json<br/>X-PAYMENT-RESPONSE: {...}<br/>X-Verification-Time: 23ms<br/>X-Settlement-Time: 1247ms<br/><br/>{<br/>  "temperature": 72,<br/>  "condition": "Sunny",<br/>  "humidity": 45<br/>}
+    
+    Agent->>Agent: Extract payment info<br/>from X-PAYMENT-RESPONSE
+    
+    Agent->>Memory: Record transaction<br/>{<br/>  service: "api.example.com",<br/>  cost: "$0.01",<br/>  txHash: "0xabc123...",<br/>  quality: 5/5,<br/>  timestamp: now<br/>}
+    
+    Note over Agent: Update spending totals<br/>Update service reputation
+    
+    Agent->>Agent: Return data to user<br/>"Temperature: 72°F, Sunny<br/>(Paid $0.01)"
+```
 
-**Purpose:** Submit transaction to blockchain and wait for confirmation
+**HTTP Response (Success):**
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Payment-Response: {"settlement":{"txHash":"0xabc123...","amount":"10000"}}
+X-Verification-Time: 23ms
+X-Settlement-Time: 1247ms
 
-```typescript
-POST /api/facilitator/settle
 {
-  "x402Version": 1,
-  "paymentHeader": "base64...",
-  "paymentRequirements": { /* same as verify */ }
+  "temperature": 72,
+  "condition": "Sunny",
+  "humidity": 45,
+  "location": "San Francisco",
+  "paid": true
 }
 ```
 
-**Process:**
-1. Parse payment payload (same as verify)
-2. Decode BCS bytes
-3. **Deserialize** back to SDK objects:
-   ```typescript
-   const txDeserializer = new Deserializer(transactionBytes);
-   const transaction = SimpleTransaction.deserialize(txDeserializer);
-   
-   const authDeserializer = new Deserializer(signatureBytes);
-   const senderAuthenticator = AccountAuthenticator.deserialize(authDeserializer);
-   ```
-4. **Submit** to blockchain:
-   ```typescript
-   const committed = await BNB.transaction.submit.simple({
-     transaction,
-     senderAuthenticator
-   });
-   ```
-5. **Wait** for confirmation:
-   ```typescript
-   await BNB.waitForTransaction({ transactionHash: committed.hash });
-   ```
-6. Verify transaction succeeded on blockchain
+## Error Flows
 
-**Response:**
-```typescript
-{
-  "success": true,
-  "error": null,
-  "txHash": "0x2e39909...",
-  "networkId": "BNB-testnet"
-}
+### Error: Insufficient Balance
+
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant API as API Server
+    participant Facilitator as Facilitator
+    participant Blockchain as Blockchain
+    
+    Agent->>API: GET /api/weather<br/>X-PAYMENT: eyJ4NDA...
+    
+    API->>Facilitator: POST /verify
+    Facilitator->>API: ✓ Valid
+    
+    API->>Facilitator: POST /settle
+    Facilitator->>Blockchain: Submit transaction
+    
+    Blockchain->>Facilitator: ❌ Insufficient balance<br/>(Revert)
+    
+    Facilitator->>API: {<br/>  "success": false,<br/>  "error": "Insufficient balance"<br/>}
+    
+    API->>Agent: HTTP 402 Payment Required<br/>{<br/>  "error": "Payment settlement failed",<br/>  "reason": "Insufficient balance",<br/>  "balance": "5000",<br/>  "required": "10000"<br/>}
+    
+    Note over Agent: Payment failed<br/>No resource delivered
 ```
 
-**Timing:** ~2-5 seconds (includes blockchain confirmation)
+### Error: Invalid Signature
 
-### 4. BNB Blockchain
-
-**Role:** Execute and record transactions
-
-**Process:**
-1. Receive transaction from facilitator
-2. Validate signature
-3. Check sender has sufficient balance
-4. Execute `0x1::BNB_account::transfer`
-5. Deduct from sender balance
-6. Add to recipient balance
-7. Update sender sequence number
-8. Record in blockchain ledger
-9. Return transaction hash
-
-**Transaction Structure:**
-```rust
-// BNB Move function being called
-public entry fun transfer(
-    sender: &signer,
-    to: address,
-    amount: u64
-)
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant API as API Server
+    participant Facilitator as Facilitator
+    
+    Agent->>API: GET /api/weather<br/>X-PAYMENT: eyJ4NDA...
+    
+    API->>Facilitator: POST /verify
+    
+    Facilitator->>Facilitator: Verify signature<br/>❌ Invalid
+    
+    Facilitator->>API: {<br/>  "isValid": false,<br/>  "invalidReason": "Invalid signature"<br/>}
+    
+    API->>Agent: HTTP 402 Payment Required<br/>{<br/>  "error": "Payment verification failed",<br/>  "reason": "Invalid signature"<br/>}
+    
+    Note over Agent: Fast fail (~20ms)<br/>No blockchain interaction<br/>No resource delivered
 ```
 
-## Transaction Format Deep Dive
+### Error: Price Too High (Agent Rejects)
 
-### Why Separate Transaction and Signature?
-
-BNB uses a two-part format similar to Sui:
-
-```typescript
-{
-  "transaction": "base64...",  // Serialized SimpleTransaction
-  "signature": "base64..."      // Serialized AccountAuthenticator
-}
-```
-
-**Benefits:**
-1. **Flexibility**: Can inspect transaction without signature
-2. **Security**: Signature can be validated independently
-3. **Compatibility**: Matches BNB SDK architecture
-4. **Standard**: Follows BNB BCS serialization patterns
-
-### BCS Serialization
-
-**BCS (Binary Canonical Serialization)** is BNB's standard for data serialization:
-
-- **Deterministic**: Same data always produces same bytes
-- **Compact**: Efficient binary format
-- **Type-safe**: Preserves type information
-- **Standard**: Used throughout BNB ecosystem
-
-```typescript
-// Serialization
-const bytes = transaction.bcsToBytes();  // Uint8Array
-
-// Deserialization
-const deserializer = new Deserializer(bytes);
-const transaction = SimpleTransaction.deserialize(deserializer);
+```mermaid
+sequenceDiagram
+    participant Agent as AI Agent
+    participant API as API Server
+    
+    Agent->>API: GET /api/expensive
+    
+    API->>Agent: HTTP 402 Payment Required<br/>{<br/>  "amount": "500000" // $0.50<br/>}
+    
+    Agent->>Agent: Evaluate price<br/>$0.50 > $0.10 MAX_PRICE<br/>❌ REJECT
+    
+    Agent->>Agent: Search for alternatives
+    
+    Note over Agent: Find cheaper API or<br/>inform user of cost
 ```
 
 ## Timing Breakdown
 
-Typical request timing:
+| Phase | Duration | Blockchain | Description |
+|-------|----------|------------|-------------|
+| Initial 402 | 10-50ms | ❌ No | Server returns requirements |
+| Agent Evaluation | 50-200ms | ❌ No | Agent decides to pay |
+| Sign Transaction | 50-200ms | ❌ No | Create & sign offline |
+| Verification | 10-50ms | ❌ No | Cryptographic validation |
+| Settlement | 400ms-3s | ✅ Yes | Blockchain confirmation |
+| API Processing | 10-100ms | ❌ No | Business logic |
+| **Total (first call)** | **1-3.5s** | - | End-to-end with payment |
+| **Total (cached)** | **10-150ms** | ❌ No | If response cached |
 
+## Caching Strategy
+
+```mermaid
+graph TD
+    A[Request] --> B{Cached?}
+    B -->|Yes| C[Return FREE]
+    B -->|No| D{Payment?}
+    D -->|Yes| E[Verify & Settle]
+    D -->|No| F[Return 402]
+    E --> G[Get Data]
+    G --> H[Cache Response]
+    H --> C
 ```
-Total Request: 2500ms
-├─ Initial 402 Request: 50ms
-├─ Transaction Building: 100ms
-├─ Transaction Signing: 50ms
-├─ Payment Request: 2300ms
-   ├─ Network: 50ms
-   ├─ Verification: 100ms
-   ├─ Settlement: 2000ms
-   │  ├─ Blockchain Submit: 500ms
-   │  ├─ Confirmation Wait: 1400ms
-   │  └─ Verification: 100ms
-   ├─ API Processing: 100ms
-   └─ Network: 50ms
-```
 
-**Optimization:**
-- Verification is fast (no blockchain)
-- Settlement is slow (blockchain confirmation required)
-- API can respond immediately after settlement confirmation
-
-## Security Considerations
-
-### 1. Private Key Protection
-
-Client must protect private key:
-- Never expose in logs
-- Never send to server
-- Store securely (env vars, key management)
-
-### 2. Transaction Replay Protection
-
-BNB prevents replay attacks via sequence numbers:
-- Each account has incrementing sequence number
-- Transaction includes sequence number
-- Blockchain rejects transactions with old sequence numbers
-
-### 3. Amount Verification
-
-Facilitator verifies payment amount:
+**Implementation:**
 ```typescript
-if (actualAmount < requiredAmount) {
-  return { isValid: false, invalidReason: "Insufficient amount" };
+async function handleRequest(req, res) {
+  // Check cache first
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    return res.json(JSON.parse(cached)); // FREE!
+  }
+  
+  // Cache miss - require payment
+  const payment = req.headers['x-payment'];
+  if (!payment) {
+    return res.status(402).json(paymentRequirements);
+  }
+  
+  // Verify & settle payment
+  await verifyAndSettle(payment);
+  
+  // Get data
+  const data = await getData();
+  
+  // Cache for 5 minutes
+  await redis.setex(cacheKey, 300, JSON.stringify(data));
+  
+  return res.json(data);
 }
 ```
 
-### 4. Recipient Verification
-
-Facilitator verifies recipient address:
-```typescript
-if (actualRecipient !== expectedRecipient) {
-  return { isValid: false, invalidReason: "Wrong recipient" };
-}
-```
-
-## Error Scenarios
-
-### Scenario 1: Insufficient Balance
+## Complete Flow Summary
 
 ```
-Client → API: GET /weather
-API → Client: 402 Payment Required
-Client → API: GET /weather (with payment)
-API → Facilitator: Settle
-Facilitator → Blockchain: Submit
-Blockchain: ❌ INSUFFICIENT_BALANCE
-Facilitator → API: { success: false, error: "Insufficient balance" }
-API → Client: 402 Payment Required
+1. Agent requests resource → 2. Server returns 402
+   ↓                              ↓
+3. Agent evaluates price    ←  ─  ┘
+   ↓
+4. Agent signs transaction (offline)
+   ↓
+5. Agent retries with X-PAYMENT
+   ↓
+6. Server verifies signature (~20ms, no blockchain)
+   ↓
+7. Server settles payment (~1-3s, blockchain)
+   ↓
+8. Server delivers resource
+   ↓
+9. Agent records transaction & updates reputation
+
+Total: ~1-3 seconds (with blockchain)
+       ~20-100ms (if cached)
 ```
 
-### Scenario 2: Invalid Signature
+## Key Principles
 
-```
-Client → API: GET /weather (with bad signature)
-API → Facilitator: Verify
-Facilitator: ❌ Invalid signature
-Facilitator → API: { isValid: false }
-API → Client: 403 Forbidden
-```
+1. **Fast Verification**: Cryptographic checks without blockchain (10-50ms)
+2. **Atomic Delivery**: Resource ONLY delivered after blockchain confirmation
+3. **Agent Autonomy**: AI decides based on budget and reputation
+4. **Replay Protection**: Each transaction can only be used once
+5. **Caching**: Avoid paying for repeated identical requests
 
-### Scenario 3: Transaction Expired
+## Resources
 
-```
-Client → API: GET /weather (with old transaction)
-API → Facilitator: Settle
-Facilitator → Blockchain: Submit
-Blockchain: ❌ SEQUENCE_NUMBER_TOO_OLD
-Facilitator → API: { success: false, error: "Transaction expired" }
-API → Client: 409 Conflict
-```
+- [Protocol Sequence Diagram](protocol-sequence.md)
+- [HTTP 402 Concepts](core-concepts/http-402.md)
+- [ElizaOS Integration](core-concepts/elizaos.md)
+- [API Reference](api-reference/server-api.md)
 
-## Best Practices
+---
 
-### For API Developers
-
-1. **Always verify before settle**: Catch errors early without blockchain cost
-2. **Return detailed errors**: Help clients debug issues
-3. **Set reasonable prices**: Balance revenue vs. user friction
-4. **Monitor settlement**: Track success rate and failures
-5. **Handle retries gracefully**: Same transaction might be sent multiple times
-
-### For Client Developers
-
-1. **Check balance first**: Avoid failed transactions
-2. **Cache account objects**: Better performance
-3. **Handle all error codes**: 402, 403, 409, 500
-4. **Add retry logic**: Network can be unreliable
-5. **Show payment confirmation**: Build user trust
-
-### For Facilitator Operators
-
-1. **Rate limit requests**: Prevent abuse
-2. **Monitor gas costs**: Settlement consumes gas
-3. **Log everything**: Debug issues quickly
-4. **Handle sequence conflicts**: Add retry logic
-5. **Keep keys secure**: Facilitator handles sensitive operations
-
-## Comparison with Other Schemes
-
-### Exact Scheme (Current Implementation)
-
-- **Pre-signed transaction**: Client signs, facilitator submits
-- **Deterministic**: Amount and recipient fixed
-- **Simple**: Easy to implement and verify
-- **Secure**: Client never reveals private key
-
-### Future Schemes
-
-**Probabilistic**: Small chance of high payment
-**Streaming**: Continuous micro-payments
-**Subscription**: Recurring payments
-
-## Conclusion
-
-The x402 protocol provides a clean, HTTP-native way to monetize APIs using blockchain payments. The three-component architecture (Client, API, Facilitator) provides:
-
-- **Separation of concerns**: Each component has clear responsibilities
-- **Security**: Private keys never leave client
-- **Reliability**: Verification before settlement prevents wasted transactions
-- **Transparency**: Transaction hashes provide proof of payment
-- **Simplicity**: Integrates with standard HTTP/REST patterns
-
-All of this happens automatically when using the provided helper (`x402axios`), making micropayments as easy as a regular API call!
-
+**x402 Flow: From request to payment to delivery in ~1-3 seconds**
