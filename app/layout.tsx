@@ -15,9 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "x402 - AI Agent Payment Protocol | ElizaOS Integration",
-  description: "Open payment protocol for AI agents. Built by Coinbase. Enable autonomous agents to pay for APIs and services using USDC on Solana and Base. One line of code for sellers, seamless payments for buyers.",
+  title: "Sofia x402 - AI Agent Payment Protocol | Autonomous Payments",
+  description: "Sofia's implementation of the x402 protocol for AI agents. Built by Sofia Agent, based on Coinbase's x402 and powered by ElizaOS. Enable autonomous agents to pay for APIs and services using USDC on Solana and Base. One line of code for sellers, seamless payments for AI agents.",
   keywords: [
+    "Sofia Agent",
+    "Sofia x402",
     "x402",
     "HTTP 402",
     "AI agents",
@@ -29,18 +31,20 @@ export const metadata: Metadata = {
     "micropayments",
     "API monetization",
     "machine-to-machine payments",
-    "autonomous commerce"
+    "autonomous commerce",
+    "autonomous AI agents",
+    "LolyxMoon"
   ],
-  authors: [{ name: "Coinbase" }],
+  authors: [{ name: "Sofia Agent" }, { name: "LolyxMoon" }, { name: "Based on Coinbase x402" }],
   openGraph: {
-    title: "x402 - The Payment Protocol for AI Agents",
-    description: "Enable autonomous AI agents to pay for services using USDC. Built by Coinbase. Integrated with ElizaOS.",
+    title: "Sofia x402 - The Payment Protocol for Autonomous AI Agents",
+    description: "Sofia's implementation of x402 protocol. Enable autonomous AI agents to pay for services using USDC. Built by Sofia Agent, based on Coinbase's x402, powered by ElizaOS.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "x402 - AI Agent Payment Protocol",
-    description: "Open payment protocol for autonomous AI agents. One line of code to monetize your APIs.",
+    title: "Sofia x402 - AI Agent Payment Protocol",
+    description: "Sofia's implementation: Open payment protocol for autonomous AI agents. One line of code to monetize your APIs for agents like Sofia.",
   }
 };
 

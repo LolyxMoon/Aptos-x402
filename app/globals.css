@@ -417,3 +417,26 @@ html {
 .docs-page [aria-label="Back to top"]:hover {
   animation: pulse-ring 1.5s infinite;
 }
+
+/* Fix gray text contrast - make subtitle text darker and more readable */
+.docs-page .text-muted-foreground,
+.docs-page [class*="text-gray"],
+.docs-page .text-slate-500,
+.docs-page .text-slate-600,
+.docs-page .text-zinc-500,
+.docs-page .text-zinc-600,
+.docs-page p.text-sm {
+  color: #3f3f46 !important;
+}
+
+/* Ensure all descriptions and paragraphs are readable */
+.docs-page p,
+.docs-page .prose p {
+  color: #18181b !important;
+}
+
+/* Fix specific gray text classes */
+.docs-page [class*="text-sm"][class*="text-"],
+.docs-page .text-sm.text-muted-foreground {
+  color: #3f3f46 !important;
+}
