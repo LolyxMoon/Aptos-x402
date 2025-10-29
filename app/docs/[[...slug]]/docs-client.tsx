@@ -17,6 +17,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image'
 
 interface DocItem {
   title: string;
@@ -361,14 +362,22 @@ export default function DocsClient({ initialContent, initialDocPath, docsStructu
           />
         )}
 
-        {/* Main Content */}
-        <main className="flex-1 px-4 py-8 lg:ml-72 lg:mr-80 lg:px-12 lg:py-12 overflow-x-hidden">
+ <main className="flex-1 px-4 py-8 lg:ml-72 lg:mr-80 lg:px-12 lg:py-12 overflow-x-hidden">
           <article className="max-w-4xl mx-auto w-full">
             {/* Hero Section for Welcome Page */}
             {isWelcomePage && (
               <div className="mb-12">
                 <Card className="border border-zinc-200">
                   <CardContent className="p-8 lg:p-12">
+                    {/* Banner Image */}
+                    <div className="mb-6">
+                      <img 
+                        src="/banner.png" 
+                        alt="Banner" 
+                        className="w-full h-auto rounded-lg"
+                      />
+                    </div>
+
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-2 rounded-lg bg-zinc-100">
                         <Zap className="w-6 h-6 text-zinc-900" />
@@ -381,7 +390,7 @@ export default function DocsClient({ initialContent, initialDocPath, docsStructu
                       Welcome to Sofia x402
                     </h1>
                     <p className="text-lg text-zinc-600 mb-8 leading-relaxed max-w-2xl">
-                      A revolutionary HTTP 402 implementation for Sofia blockchain. Enable seamless micropayments and pay-per-use APIs with built-in blockchain verification.
+                      A revolutionary HTTP 402 implementation for Solana blockchain. Enable seamless micropayments and pay-per-use APIs with built-in blockchain verification.
                     </p>
                     <div className="flex flex-wrap gap-3">
                       <Button

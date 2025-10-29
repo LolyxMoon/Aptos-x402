@@ -27,7 +27,7 @@ export default function Home() {
     setTiming(null);
 
     try {
-      console.log('\n🚀 Using x402axios (Simple Aptos payment wrapper)...');
+      console.log('\n Using Sofiax402 (Simple Solana payment wrapper)...');
       console.log('This will:');
       console.log('  1. Make request to the protected API');
       console.log('  2. Detect 402 Payment Required response');
@@ -47,7 +47,7 @@ export default function Home() {
       const endTime = performance.now();
       const totalTime = Math.round(endTime - startTime);
 
-      console.log('✅ x402Axios completed successfully!');
+      console.log('✅ x402 completed successfully!');
 
       // Extract timing headers if present
       const verificationTime = result.headers['x-verification-time'];
@@ -67,7 +67,7 @@ export default function Home() {
         status: result.status,
         statusText: "OK",
         requestHeaders: {
-          "X-PAYMENT": "Automatically handled by x402Axios"
+          "X-PAYMENT": "Automatically handled by Sofiax402"
         },
         responseHeaders: result.headers,
         body: result.data,
@@ -109,7 +109,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-black mb-2">
             x402 Payment Protocol Demo
           </h1>
-          <p className="text-gray-700">HTTP 402 on Aptos Blockchain</p>
+          <p className="text-gray-700">HTTP 402 on Solana Blockchain</p>
         </div>
 
         {/* Two Column Layout */}
@@ -193,7 +193,7 @@ export default function Home() {
                   Access Protected Weather API
                 </h2>
           <p className="text-gray-700 mb-4 text-sm">
-            Click below to access the protected weather API. The x402axios() function will automatically handle the payment if required!
+            Click below to access the protected weather API. The Sofiax402() function will automatically handle the payment if required!
           </p>
           <p className="text-gray-600 mb-4 text-xs italic">
             💡 Open DevTools Network tab to see 2 requests: first without payment (gets 402), then with payment (gets data)
@@ -262,7 +262,7 @@ export default function Home() {
             {/* Info Box */}
             <div className="bg-gray-50 border border-black rounded-lg p-6">
               <h3 className="font-semibold mb-2 text-black text-sm">
-                How x402Axios works:
+                How Sofiax402 works:
               </h3>
               <ol className="list-decimal list-inside space-y-1 text-xs text-gray-700">
                 <li><strong>Initial Request:</strong> Tries to access resource (no payment)</li>
