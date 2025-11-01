@@ -447,12 +447,12 @@ const payAction = {
               </div>
               <div className="flex items-center gap-6">
                 <a
-                  href="https://github.com/coinbase/x402"
+                  href="https://x.com/oliviax402"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-900 transition-colors"
                 >
-                  GitHub
+                  Twitter
                 </a>
                 <a
                   href="https://x402.org"
