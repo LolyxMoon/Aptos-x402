@@ -24,15 +24,15 @@ pnpm add @elizaos/plugin-x402
 ```typescript
 // character.json
 {
-  "name": "Sofia",
+  "name": "Olivia",
   "plugins": [
     "@elizaos/plugin-x402",
-    "@elizaos/plugin-solana"
+    "@elizaos/plugin-BNB"
   ],
   "settings": {
     "secrets": {
       "WALLET_PRIVATE_KEY": "...",
-      "SOLANA_RPC_URL": "https://api.devnet.solana.com"
+      "BNB_RPC_URL": "https://api.devnet.BNB.com"
     },
     "MAX_PRICE_PER_REQUEST": "0.10",
     "DAILY_BUDGET": "5.00",
@@ -239,7 +239,7 @@ app.use(
       // Route configuration
       "GET /api/weather": {
         price: "$0.01",           // Price in dollars
-        network: "base-sepolia"   // or "solana-devnet"
+        network: "base-sepolia"   // or "BNB-devnet"
       },
       "POST /api/analyze": {
         price: "$0.05",
@@ -427,7 +427,7 @@ console.log(data);
 
 ## Utility Functions
 
-### Blockchain Utilities (Solana)
+### Blockchain Utilities (BNB)
 
 ```typescript
 import {
@@ -437,11 +437,11 @@ import {
   Transaction,
   SystemProgram,
   sendAndConfirmTransaction
-} from '@solana/web3.js';
+} from '@BNB/web3.js';
 
-// Get Solana connection
+// Get BNB connection
 const connection = new Connection(
-  'https://api.devnet.solana.com',
+  'https://api.devnet.BNB.com',
   'confirmed'
 );
 
@@ -455,7 +455,7 @@ const balance = await connection.getBalance(keypair.publicKey);
 console.log('Balance:', balance / 1e9, 'SOL');
 
 // Transfer USDC (SPL Token)
-import { getAssociatedTokenAddress, createTransferInstruction } from '@solana/spl-token';
+import { getAssociatedTokenAddress, createTransferInstruction } from '@BNB/spl-token';
 
 const tokenMint = new PublicKey('USDC_MINT_ADDRESS');
 const fromAta = await getAssociatedTokenAddress(tokenMint, keypair.publicKey);

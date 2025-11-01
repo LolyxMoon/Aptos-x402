@@ -57,7 +57,7 @@
 
 * [ElizaOS Framework](ecosystem/elizaos.md)
 * [x402 Protocol (Coinbase)](ecosystem/x402-protocol.md)
-* [Solana Integration](ecosystem/solana.md)
+* [BNB Integration](ecosystem/BNB.md)
 * [Base Integration](ecosystem/base.md)
 * [Community Projects](ecosystem/community.md)
 

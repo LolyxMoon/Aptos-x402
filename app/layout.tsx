@@ -15,18 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sofia x402 - AI Agent Payment Protocol | Autonomous Payments",
-  description: "Sofia's implementation of the x402 protocol for AI agents. Built by Sofia Agent, based on Coinbase's x402 and powered by ElizaOS. Enable autonomous agents to pay for APIs and services using USDC on Solana and Base. One line of code for sellers, seamless payments for AI agents.",
+  title: "Olivia x402 - AI Agent Payment Protocol | Autonomous Payments",
+  description: "Olivia's implementation of the x402 protocol for AI agents. Built by Olivia Agent, based on Coinbase's x402 and powered by ElizaOS. Enable autonomous agents to pay for APIs and services using USDC on https://github.com/LolyxMoon/Oliviax402 and Base. One line of code for sellers, seamless payments for AI agents.",
   keywords: [
-    "Sofia Agent",
-    "Sofia x402",
+    "Olivia Agent",
+    "Olivia x402",
     "x402",
     "HTTP 402",
     "AI agents",
     "ElizaOS",
     "cryptocurrency payments",
     "USDC",
-    "Solana",
+    "BNB",
     "Base",
     "micropayments",
     "API monetization",
@@ -35,16 +35,16 @@ export const metadata: Metadata = {
     "autonomous AI agents",
     "LolyxMoon"
   ],
-  authors: [{ name: "Sofia Agent" }, { name: "LolyxMoon" }, { name: "Based on Coinbase x402" }],
+  authors: [{ name: "Olivia Agent" }, { name: "LolyxMoon" }, { name: "Based on Coinbase x402" }],
   openGraph: {
-    title: "Sofia x402 - The Payment Protocol for Autonomous AI Agents",
-    description: "Sofia's implementation of x402 protocol. Enable autonomous AI agents to pay for services using USDC. Built by Sofia Agent, based on Coinbase's x402, powered by ElizaOS.",
+    title: "Olivia x402 - The Payment Protocol for Autonomous AI Agents",
+    description: "Olivia's implementation of x402 protocol. Enable autonomous AI agents to pay for services using USDC. Built by Olivia Agent, based on Coinbase's x402, powered by ElizaOS.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sofia x402 - AI Agent Payment Protocol",
-    description: "Sofia's implementation: Open payment protocol for autonomous AI agents. One line of code to monetize your APIs for agents like Sofia.",
+    title: "Olivia x402 - AI Agent Payment Protocol",
+    description: "Olivia's implementation: Open payment protocol for autonomous AI agents. One line of code to monetize your APIs for agents like Olivia.",
   }
 };
 

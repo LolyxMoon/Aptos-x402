@@ -4,7 +4,7 @@
 
 ### What is x402?
 
-x402 is an open protocol that enables HTTP APIs to require cryptocurrency payment before serving responses. It uses the HTTP 402 Payment Required status code and blockchain payments (USDC on Solana/Base) to enable machine-to-machine micropayments without requiring accounts or API keys.
+x402 is an open protocol that enables HTTP APIs to require cryptocurrency payment before serving responses. It uses the HTTP 402 Payment Required status code and blockchain payments (USDC on BNB/Base) to enable machine-to-machine micropayments without requiring accounts or API keys.
 
 Think of it as "pay-per-API-call" instead of monthly subscriptions.
 
@@ -25,7 +25,7 @@ Traditional payment systems weren't designed for micropayments or machine-to-mac
 ### How fast are payments?
 
 - **Verification**: <50ms (cryptographic signature check, no blockchain)
-- **Settlement**: 1-3 seconds (Solana) or 1-2 seconds (Base)
+- **Settlement**: 1-3 seconds (BNB) or 1-2 seconds (Base)
 - **Total flow**: Typically completes in under 3 seconds from initial request to receiving the resource
 
 ### What does it cost?
@@ -43,7 +43,7 @@ Traditional payment systems weren't designed for micropayments or machine-to-mac
 ### Which blockchains are supported?
 
 Currently supported:
-- **Solana** (mainnet, devnet) - Fastest, ~400ms finality
+- **BNB** (mainnet, devnet) - Fastest, ~400ms finality
 - **Base** (L2 Ethereum) - Ethereum ecosystem, 1-2 second finality
 - **Ethereum** mainnet (via Base)
 
@@ -71,7 +71,7 @@ No. ElizaOS provides an x402 plugin with pre-built actions:
 import { x402Plugin } from '@elizaos/plugin-x402';
 
 const agent = {
-  name: "Sofia",
+  name: "Olivia",
   plugins: [x402Plugin],
   actions: [
     'PAY_FOR_SERVICE',      // Automatically pays for APIs
@@ -233,16 +233,16 @@ Or let price be your rate limiter - if calls cost $0.10 each, users naturally se
 
 Use testnets with free test tokens:
 
-**Solana Devnet:**
+**BNB Devnet:**
 ```bash
 # Get free test SOL
-curl -X POST https://api.devnet.solana.com \
+curl -X POST https://api.devnet.BNB.com \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"requestAirdrop",
        "params":["YOUR_ADDRESS",1000000000]}'
 
 # Configure for devnet
-{ network: 'solana-devnet' }
+{ network: 'BNB-devnet' }
 ```
 
 **Base Sepolia (Testnet):**
@@ -404,7 +404,7 @@ Check the error message in the 402 response for specifics.
 
 ### Payments are slow - how to speed up?
 
-1. **Use Solana**: ~400ms vs 1-2s on Base
+1. **Use BNB**: ~400ms vs 1-2s on Base
 2. **Increase gas price**: Faster inclusion in blocks
 3. **Cache responses**: Don't require payment for repeated identical requests
 4. **Batch requests**: Multiple queries in one payment (future feature)
@@ -466,7 +466,7 @@ Community is active and helpful!
 ### What's coming next?
 
 **Short-term (Q4 2025):**
-- ✅ Multi-chain support (Solana, Base, Ethereum)
+- ✅ Multi-chain support (BNB, Base, Ethereum)
 - 🚧 MCP (Model Context Protocol) integration
 - 🚧 Agent reputation systems
 - 🚧 Service discovery protocol

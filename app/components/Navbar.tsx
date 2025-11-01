@@ -14,13 +14,13 @@ export default function Navbar() {
         >
           <Image
             src="/logo_dark.svg"
-            alt="SOFIA x420"
+            alt="Olivia x420"
             width={32}
             height={32}
             priority
           />
           <span className="text-2xl font-semibold tracking-tight bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-600 bg-clip-text text-transparent group-hover:from-zinc-700 group-hover:via-zinc-600 group-hover:to-zinc-500 transition-all" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-            SOFIA x420
+            Olivia x420
           </span>
         </a>
         
@@ -45,7 +45,7 @@ export default function Navbar() {
             variant="ghost"
             size="sm"
             className="text-zinc-700 hover:text-zinc-900"
-            onClick={() => window.open('https://github.com/LolyxMoon/Sofiax402', '_blank')}
+            onClick={() => window.open('https://github.com/LolyxMoon/Oliviax402', '_blank')}
           >
             <Github className="w-4 h-4 mr-2" />
             GitHub

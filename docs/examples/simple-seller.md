@@ -199,7 +199,7 @@ export const middleware = paymentMiddleware(
 
 ## Source Code
 
-Full source code: [examples/simple-seller](https://github.com/LolyxMoon/Sofiax402/tree/main/examples/simple-seller)
+Full source code: [examples/simple-seller](https://github.com/LolyxMoon/Oliviax402/tree/main/examples/simple-seller)
 
 ---
 

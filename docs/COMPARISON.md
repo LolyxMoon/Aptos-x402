@@ -16,7 +16,7 @@ x402 is an open payment protocol that enables HTTP APIs to require cryptocurrenc
 | **Minimum Charge** | $5-10/month typical | $0.001 per request |
 | **AI Agent Support** | Manual setup required | Fully autonomous |
 | **Payment Token** | Credit cards, PayPal | USDC (stablecoins) |
-| **Blockchain** | N/A | Solana, Base, Ethereum |
+| **Blockchain** | N/A | BNB, Base, Ethereum |
 | **Setup Complexity** | High (KYC, accounts) | Low (just a wallet) |
 
 ## Implementation Comparison
@@ -247,10 +247,10 @@ const agent = {
 ```typescript
 // Autonomous agent with x402 plugin
 const agent = {
-  name: "Sofia",
+  name: "Olivia",
   plugins: [
     "@elizaos/plugin-x402",
-    "@elizaos/plugin-solana"
+    "@elizaos/plugin-BNB"
   ],
   actions: [
     payForServiceAction,  // Discovers and pays automatically
@@ -432,7 +432,7 @@ Margin: 99.98%
 const agent = {
   plugins: [
     "@elizaos/plugin-x402",      // Payment protocol
-    "@elizaos/plugin-solana",    // Solana blockchain
+    "@elizaos/plugin-BNB",    // BNB blockchain
     "@elizaos/plugin-twitter",   // Social media
     "@elizaos/plugin-discord",   // Community
     "@elizaos/plugin-openai",    // AI models
@@ -489,7 +489,7 @@ const agent = {
 - Better billing UX
 
 ### x402 + ElizaOS
-- ✅ Multi-chain support (Solana, Base, Ethereum)
+- ✅ Multi-chain support (BNB, Base, Ethereum)
 - 🚧 Agent reputation systems
 - 🚧 Automatic price negotiation
 - 🚧 Service discovery protocols

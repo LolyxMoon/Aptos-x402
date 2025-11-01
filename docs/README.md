@@ -1,42 +1,42 @@
-# Sofia x402 - AI Agent Payment Protocol
+# Olivia x402 - AI Agent Payment Protocol
 
-**Sofia's implementation of the x402 protocol for autonomous AI agent payments**
+**Olivia's implementation of the x402 protocol for autonomous AI agent payments**
 
-> 🤖 Built by Sofia Agent | 🔗 Based on Coinbase's x402 Protocol | ⚡ Powered by ElizaOS
+> 🤖 Built by Olivia Agent | 🔗 Based on Coinbase's x402 Protocol | ⚡ Powered by ElizaOS
 
-[![GitHub](https://img.shields.io/badge/GitHub-LolyxMoon%2FSofiax402-blue?logo=github)](https://github.com/LolyxMoon/Sofiax402)
-[![Sofia Agent](https://img.shields.io/badge/Agent-Sofia-purple)](https://github.com/LolyxMoon/Sofiax402)
+[![GitHub](https://img.shields.io/badge/GitHub-LolyxMoon%2FOliviax402-blue?logo=github)](https://github.com/LolyxMoon/Oliviax402)
+[![Olivia Agent](https://img.shields.io/badge/Agent-Olivia-purple)](https://github.com/LolyxMoon/Oliviax402)
 [![Protocol](https://img.shields.io/badge/Protocol-x402-orange)](https://x402.org)
 
-Sofia is an autonomous AI agent that demonstrates the power of the x402 payment protocol. This repository contains Sofia's implementation and documentation for building AI agents that can discover, evaluate, and pay for services using cryptocurrency.
+Olivia is an autonomous AI agent that demonstrates the power of the x402 payment protocol. This repository contains Olivia's implementation and documentation for building AI agents that can discover, evaluate, and pay for services using cryptocurrency.
 
 ## About This Project
 
-This is **Sofia's fork** of the x402 protocol implementation, specifically designed for AI agents. While x402 is an open protocol created by Coinbase and ElizaOS is the framework developed by ai16z, this project showcases how Sofia uses these technologies to enable autonomous payments.
+This is **Olivia's fork** of the x402 protocol implementation, specifically designed for AI agents. While x402 is an open protocol created by Coinbase and ElizaOS is the framework developed by ai16z, this project showcases how Olivia uses these technologies to enable autonomous payments.
 
 **Credits:**
 - **x402 Protocol**: Created by Coinbase ([github.com/coinbase/x402](https://github.com/coinbase/x402))
 - **ElizaOS Framework**: Developed by ai16z ([github.com/elizaOS/eliza](https://github.com/elizaOS/eliza))
-- **This Implementation**: Sofia Agent ([github.com/LolyxMoon/Sofiax402](https://github.com/LolyxMoon/Sofiax402))
+- **This Implementation**: Olivia Agent ([github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Oliviax402))
 
 ## What is x402?
 
-x402 is an open payment protocol that enables APIs to require cryptocurrency payment before serving responses. Built on the HTTP 402 Payment Required status code, it allows services to charge for access directly over APIs using USDC payments on Solana and Base blockchains.
+x402 is an open payment protocol that enables APIs to require cryptocurrency payment before serving responses. Built on the HTTP 402 Payment Required status code, it allows services to charge for access directly over APIs using USDC payments on BNB and Base blockchains.
 
-Sofia uses x402 to autonomously pay for services without requiring accounts, API keys, or human intervention.
+Olivia uses x402 to autonomously pay for services without requiring accounts, API keys, or human intervention.
 
-### How Sofia Uses x402
+### How Olivia Uses x402
 
-When Sofia needs to access a paid service:
+When Olivia needs to access a paid service:
 
-1. **Sofia discovers** the service and checks the price
-2. **Sofia evaluates** if the price is fair and within budget
-3. **Sofia signs** a blockchain transaction (USDC transfer)
-4. **Sofia sends** the payment with her request
-5. **Service verifies** and settles Sofia's payment
-6. **Sofia receives** the data and learns from the transaction
+1. **Olivia discovers** the service and checks the price
+2. **Olivia evaluates** if the price is fair and within budget
+3. **Olivia signs** a blockchain transaction (USDC transfer)
+4. **Olivia sends** the payment with her request
+5. **Service verifies** and settles Olivia's payment
+6. **Olivia receives** the data and learns from the transaction
 
-This approach enables **autonomous machine-to-machine payments** - perfect for AI agents like Sofia.
+This approach enables **autonomous machine-to-machine payments** - perfect for AI agents like Olivia.
 
 ## What is ElizaOS?
 
@@ -47,9 +47,9 @@ This approach enables **autonomous machine-to-machine payments** - perfect for A
 - **Natural language** to autonomous actions
 - **Built-in x402 support** for automatic payments
 
-Sofia is built on ElizaOS, allowing her to independently discover APIs, evaluate pricing, make payments, and use services - all without human intervention.
+Olivia is built on ElizaOS, allowing her to independently discover APIs, evaluate pricing, make payments, and use services - all without human intervention.
 
-## Why Sofia Uses x402
+## Why Olivia Uses x402
 
 Traditional APIs require:
 - ❌ Manual account creation
@@ -58,7 +58,7 @@ Traditional APIs require:
 - ❌ API key management
 - ❌ Human approval for each service
 
-Sofia + x402 enable:
+Olivia + x402 enable:
 - ✅ Autonomous service discovery
 - ✅ Instant payments (1-3 seconds)
 - ✅ Pay-per-use (down to $0.001)
@@ -70,41 +70,41 @@ Sofia + x402 enable:
 
 ```mermaid
 sequenceDiagram
-    participant Sofia
+    participant Olivia
     participant API
     participant Blockchain
     
-    Sofia->>API: GET /weather
-    API->>Sofia: 402 ($0.01 required)
-    Sofia->>Sofia: Evaluate price
-    Sofia->>Sofia: Sign USDC transaction
-    Sofia->>API: GET /weather + X-PAYMENT
+    Olivia->>API: GET /weather
+    API->>Olivia: 402 ($0.01 required)
+    Olivia->>Olivia: Evaluate price
+    Olivia->>Olivia: Sign USDC transaction
+    Olivia->>API: GET /weather + X-PAYMENT
     API->>Blockchain: Verify & settle
     Blockchain->>API: Confirmed
-    API->>Sofia: Weather data
+    API->>Olivia: Weather data
     
-    Note over Sofia: Total: ~1-3 seconds
+    Note over Olivia: Total: ~1-3 seconds
 ```
 
 ## Quick Start
 
 ### For AI Agent Developers
 
-Build an autonomous agent like Sofia that pays for services:
+Build an autonomous agent like Olivia that pays for services:
 
 ```bash
-# 1. Clone Sofia's x402 implementation
-git clone https://github.com/LolyxMoon/Sofiax402.git
-cd Sofiax402 && pnpm install
+# 1. Clone Olivia's x402 implementation
+git clone https://github.com/LolyxMoon/Oliviax402.git
+cd Oliviax402 && pnpm install
 
-# 2. Create your character (inspired by Sofia)
+# 2. Create your character (inspired by Olivia)
 cat > characters/myagent.json << EOF
 {
   "name": "MyAgent",
   "bio": ["AI agent that autonomously pays for data"],
   "plugins": [
     "@elizaos/plugin-x402",
-    "@elizaos/plugin-solana"
+    "@elizaos/plugin-BNB"
   ],
   "settings": {
     "secrets": {
@@ -129,7 +129,7 @@ pnpm start --character=characters/myagent.json
 
 ### For API Providers
 
-Add x402 payments to your API (so agents like Sofia can pay you):
+Add x402 payments to your API (so agents like Olivia can pay you):
 
 ```bash
 # 1. Install
@@ -167,15 +167,15 @@ EOF
 WALLET_ADDRESS=0x... node server.js
 ```
 
-**That's it!** Sofia and other AI agents can now pay for your API.
+**That's it!** Olivia and other AI agents can now pay for your API.
 
-## Why Solana & Base?
+## Why BNB & Base?
 
-### Solana
+### BNB
 - ⚡ **Fast**: ~400ms finality
 - 💰 **Cheap**: ~$0.00025 per transaction
 - 🚀 **Scale**: 65,000 TPS capacity
-- 🎯 **Best for**: High-frequency AI agent commerce (Sofia's preferred network)
+- 🎯 **Best for**: High-frequency AI agent commerce (Olivia's preferred network)
 
 ### Base (Ethereum L2)
 - 🔗 **Ecosystem**: Full Ethereum compatibility
@@ -185,15 +185,15 @@ WALLET_ADDRESS=0x... node server.js
 
 Both networks settle in 1-3 seconds - fast enough for real-time API access by AI agents.
 
-## Sofia's Real-World Use Cases
+## Olivia's Real-World Use Cases
 
 ### 1. Autonomous Data Discovery
 
 ```typescript
-// Sofia autonomously discovers and uses APIs
+// Olivia autonomously discovers and uses APIs
 User: "Analyze sentiment of this article and get weather for the location mentioned"
 
-Sofia: 
+Olivia: 
 1. Discovers sentiment API ($0.05/request)
 2. Evaluates: $0.05 < $0.10 budget ✓
 3. Pays $0.05 USDC automatically
@@ -212,7 +212,7 @@ Human approvals: 0
 
 ### 2. Smart Budget Management
 
-Sofia manages her own spending:
+Olivia manages her own spending:
 - Daily budget: $5.00
 - Per-request limit: $0.10
 - Auto-approve under: $0.01
@@ -222,7 +222,7 @@ She tracks every transaction and learns which services provide the best value.
 
 ### 3. Service Discovery & Comparison
 
-Sofia can:
+Olivia can:
 - Find x402-enabled APIs autonomously
 - Compare prices across services
 - Read reviews and reputation scores
@@ -231,20 +231,20 @@ Sofia can:
 
 ## Key Features
 
-### For AI Agents (Like Sofia)
+### For AI Agents (Like Olivia)
 
 ✅ **Autonomous Discovery**
 ```typescript
-// Sofia finds new x402 APIs automatically
-const services = await sofia.executeAction('DISCOVER_SERVICES', {
+// Olivia finds new x402 APIs automatically
+const services = await Olivia.executeAction('DISCOVER_SERVICES', {
   query: 'weather APIs'
 });
 ```
 
 ✅ **Price Evaluation**
 ```typescript
-// Sofia decides if price is fair
-const eval = await sofia.executeAction('EVALUATE_PRICING', {
+// Olivia decides if price is fair
+const eval = await Olivia.executeAction('EVALUATE_PRICING', {
   url: 'https://api.example.com/data'
 });
 // Returns: { affordable: true, alternatives: [...] }
@@ -252,7 +252,7 @@ const eval = await sofia.executeAction('EVALUATE_PRICING', {
 
 ✅ **Budget Management**
 ```typescript
-// Sofia tracks spending
+// Olivia tracks spending
 {
   "MAX_PRICE_PER_REQUEST": "0.10",
   "DAILY_BUDGET": "5.00",
@@ -262,8 +262,8 @@ const eval = await sofia.executeAction('EVALUATE_PRICING', {
 
 ✅ **Learning & Adaptation**
 ```typescript
-// Sofia learns which services provide value
-sofia.memory.remember({
+// Olivia learns which services provide value
+Olivia.memory.remember({
   service: 'https://api.weather.com',
   quality: 5,
   price: 0.01,
@@ -299,7 +299,7 @@ app.get('/api/data', handler); // That's it!
 
 ```
 ┌─────────────┐
-│ Sofia Agent │ (ElizaOS)
+│ Olivia Agent │ (ElizaOS)
 │  - Discover │
 │  - Evaluate │
 │  - Pay      │
@@ -323,7 +323,7 @@ app.get('/api/data', handler); // That's it!
        │
        ▼
 ┌─────────────┐
-│ Blockchain  │ (Solana/Base)
+│ Blockchain  │ (BNB/Base)
 │  - USDC     │
 │  - Transfer │
 │  - Confirm  │
@@ -341,19 +341,19 @@ We provide a **free public facilitator** that handles blockchain interactions:
 - ✅ Works on testnet and mainnet
 - ✅ Zero setup or authentication
 - ✅ Suitable for production use
-- ✅ Supports Solana and Base
+- ✅ Supports BNB and Base
 
-Sofia and other agents use this facilitator by default. **For specialized needs**, you can self-host your own facilitator.
+Olivia and other agents use this facilitator by default. **For specialized needs**, you can self-host your own facilitator.
 
 ## Performance
 
 | Metric | Value | Network |
 |--------|-------|---------|
 | Verification | ~10-50ms | Off-chain |
-| Settlement | ~400ms | Solana |
+| Settlement | ~400ms | BNB |
 | Settlement | ~1-2s | Base |
 | Total Flow | 1-3s | - |
-| Gas Cost | ~$0.00025 | Solana |
+| Gas Cost | ~$0.00025 | BNB |
 | Gas Cost | ~$0.001 | Base |
 | Min Payment | $0.001 | Both |
 
@@ -365,26 +365,26 @@ Sofia and other agents use this facilitator by default. **For specialized needs*
 - 🚫 **Replay protection** via nonces
 - 🛡️ **No PCI compliance** needed (no credit cards)
 
-## Sofia's Example Workflow
+## Olivia's Example Workflow
 
 ```typescript
-// 1. User asks Sofia
+// 1. User asks Olivia
 "What's the weather in Tokyo?"
 
-// 2. Sofia discovers API
-const apis = await sofia.discoverServices('weather APIs');
+// 2. Olivia discovers API
+const apis = await Olivia.discoverServices('weather APIs');
 // Found: https://api.weather.com ($0.01/request)
 
-// 3. Sofia evaluates price
-const eval = await sofia.evaluatePricing('https://api.weather.com');
+// 3. Olivia evaluates price
+const eval = await Olivia.evaluatePricing('https://api.weather.com');
 // Decision: APPROVE ($0.01 < $0.10 budget)
 
-// 4. Sofia pays autonomously
-const weather = await sofia.payForService('https://api.weather.com/tokyo');
+// 4. Olivia pays autonomously
+const weather = await Olivia.payForService('https://api.weather.com/tokyo');
 // Paid: $0.01 USDC
 // TX: 0xabc123...
 
-// 5. Sofia responds
+// 5. Olivia responds
 "Tokyo: 68°F, Cloudy. (Paid $0.01)"
 
 // Total time: ~3 seconds
@@ -395,10 +395,10 @@ const weather = await sofia.payForService('https://api.weather.com/tokyo');
 
 ### Choose Your Path
 
-**I want to build AI agents like Sofia**
-→ [Sofia's Agent Quickstart](getting-started/quickstart-agents.md)
+**I want to build AI agents like Olivia**
+→ [Olivia's Agent Quickstart](getting-started/quickstart-agents.md)
 
-**I want to sell API access to agents like Sofia**
+**I want to sell API access to agents like Olivia**
 → [Seller Quickstart](getting-started/quickstart-sellers.md)
 
 **I want to consume x402 APIs (not an agent)**
@@ -418,7 +418,7 @@ const weather = await sofia.payForService('https://api.weather.com/tokyo');
 ## Community & Support
 
 ### Official Resources
-- **Sofia's Repository**: https://github.com/LolyxMoon/Sofiax402
+- **Olivia's Repository**: https://github.com/LolyxMoon/Oliviax402
 - **x402 Protocol**: https://x402.org
 - **Whitepaper**: https://x402.org/x402-whitepaper.pdf
 - **Spec**: https://github.com/coinbase/x402
@@ -432,12 +432,12 @@ const weather = await sofia.payForService('https://api.weather.com/tokyo');
 ### Built With
 - **Coinbase**: x402 protocol
 - **ai16z**: ElizaOS framework
-- **Sofia**: This implementation
+- **Olivia**: This implementation
 - **Community**: 100+ contributors
 
 ## Contributing
 
-Sofia's x402 is an open implementation. Contribute:
+Olivia's x402 is an open implementation. Contribute:
 
 - 🔧 **Implementations** for new languages/frameworks
 - ⛓️ **Blockchain** integrations (Ethereum, Polygon, etc.)
@@ -445,16 +445,16 @@ Sofia's x402 is an open implementation. Contribute:
 - 📚 **Documentation** improvements
 - 🐛 **Bug reports** and fixes
 
-See [CONTRIBUTING.md](https://github.com/LolyxMoon/Sofiax402/blob/main/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/LolyxMoon/Oliviax402/blob/main/CONTRIBUTING.md)
 
 ## Roadmap
 
 ### Q4 2025
-- ✅ Solana & Base support
+- ✅ BNB & Base support
 - ✅ ElizaOS integration
 - ✅ Public facilitator
 - 🚧 MCP (Model Context Protocol) integration
-- 🚧 Sofia's enhanced autonomy features
+- 🚧 Olivia's enhanced autonomy features
 
 ### 2026
 - 🚧 Subscription payment schemes
@@ -462,7 +462,7 @@ See [CONTRIBUTING.md](https://github.com/LolyxMoon/Sofiax402/blob/main/CONTRIBUT
 - 🚧 Service discovery protocol
 - 🚧 Cross-chain payments
 - 🚧 Privacy-preserving payments
-- 🚧 Sofia's multi-agent collaboration
+- 🚧 Olivia's multi-agent collaboration
 
 ## License
 
@@ -471,7 +471,7 @@ This implementation: MIT
 
 ## Conclusion
 
-**Sofia x402 = The future of AI agent commerce**
+**Olivia x402 = The future of AI agent commerce**
 
 - ✅ Autonomous agents that discover and pay for services
 - ✅ APIs monetized with micropayments (<$0.001)
@@ -480,10 +480,10 @@ This implementation: MIT
 - ✅ Global, permissionless access
 - ✅ Built on open standards
 
-**Get started today** and enable the autonomous AI economy with Sofia!
+**Get started today** and enable the autonomous AI economy with Olivia!
 
 ---
 
 **Questions?** Check the [FAQ](faq.md) or join our [Discord](https://discord.gg/x402)
 
-**Want to see Sofia in action?** Visit [github.com/LolyxMoon/Sofiax402](https://github.com/LolyxMoon/Sofiax402)
+**Want to see Olivia in action?** Visit [github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Oliviax402)

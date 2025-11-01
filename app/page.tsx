@@ -23,12 +23,12 @@ export default function LandingPage() {
             <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-zinc-900">
               HTTP 402 for APIs.
               <br />
-              <span className="text-zinc-600">Sofia AI agents that pay.</span>
+              <span className="text-zinc-600">Olivia AI agents that pay.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-              Enable autonomous AI agents to pay for services using USDC on Solana. 
+              Enable autonomous AI agents to pay for services using USDC on BNB. 
               One line of code for sellers, seamless payments for buyers.
             </p>
 
@@ -51,9 +51,9 @@ export default function LandingPage() {
 
             {/* Quick Install */}
             <div className="pt-8">
-              <p className="text-sm text-zinc-500 mb-3">Get started with Sofiax402</p>
+              <p className="text-sm text-zinc-500 mb-3">Get started with Oliviax402</p>
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 rounded-lg font-mono text-sm text-zinc-100">
-                <span>https://github.com/LolyxMoon/Sofiax402</span>
+                <span>https://github.com/LolyxMoon/Oliviax402</span>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function LandingPage() {
                 Instant Settlement
               </h3>
               <p className="text-zinc-600 text-sm leading-relaxed">
-                Built on Solana and Base. Near-zero fees, sub-second verification, instant USDC settlement.
+                Built on BNB and Base. Near-zero fees, sub-second verification, instant USDC settlement.
               </p>
             </div>
 
@@ -284,10 +284,10 @@ const payAction = {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h2 className="text-3xl font-bold text-zinc-900 mb-4">
-                  Built for Sofiax402/ElizaOS Agents
+                  Built for Oliviax402/ElizaOS Agents
                 </h2>
                 <p className="text-zinc-600 mb-6">
-                  The first AI agent framework with native x402 support. Sofia/ElizaOS agents can autonomously 
+                  The first AI agent framework with native x402 support. Olivia/ElizaOS agents can autonomously 
                   discover, evaluate, and pay for services across the internet using USDC micropayments.
                 </p>
                 <ul className="space-y-3 text-sm text-zinc-600">
@@ -305,7 +305,7 @@ const payAction = {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-zinc-900 mt-2 flex-shrink-0"></div>
-                    <span>Deploy on Solana, Base, Ethereum, and more</span>
+                    <span>Deploy on BNB, Base, Ethereum, and more</span>
                   </li>
                 </ul>
                 <div className="flex gap-3 mt-6">
@@ -332,21 +332,21 @@ const payAction = {
                 <pre className="text-xs text-zinc-100 leading-relaxed">
 {`// character.json
 {
-  "name": "Sofia",
+  "name": "Olivia",
   "bio": [
     "AI agent that autonomously",
     "pays for data and services",
     "using x402 protocol"
   ],
   "plugins": [
-    "@elizaos/plugin-solana",
+    "@elizaos/plugin-BNB",
     "@elizaos/plugin-x402",
     "@elizaos/plugin-twitter"
   ],
   "settings": {
     "secrets": {
       "WALLET_PRIVATE_KEY": "...",
-      "SOLANA_RPC_URL": "..."
+      "BNB_RPC_URL": "..."
     }
   },
   "actions": [
@@ -433,7 +433,7 @@ const payAction = {
             {/* Large Typography */}
             <div className="text-center mb-12">
               <h2 className="text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-zinc-900" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-                Sofiax402
+                Oliviax402
               </h2>
               <p className="text-sm text-zinc-500 mt-4">
                 The payment protocol for autonomous AI agents
@@ -463,7 +463,7 @@ const payAction = {
                   x402.org
                 </a>
                 <a
-                  href="https://github.com/LolyxMoon/Sofiax402"
+                  href="https://github.com/LolyxMoon/Oliviax402"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-900 transition-colors"

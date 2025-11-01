@@ -8,7 +8,7 @@ The easiest way to consume x402-protected APIs is using pre-built client wrapper
 
 ```bash
 # ElizaOS comes with x402 support built-in
-https://github.com/LolyxMoon/Sofiax402
+https://github.com/LolyxMoon/Oliviax402
 cd eliza
 pnpm install
 ```
@@ -28,16 +28,16 @@ npm install x402-fetch
 ```typescript
 // character.json
 {
-  "name": "Sofia",
+  "name": "Olivia",
   "bio": ["AI agent that can pay for services autonomously"],
   "plugins": [
     "@elizaos/plugin-x402",
-    "@elizaos/plugin-solana"
+    "@elizaos/plugin-BNB"
   ],
   "settings": {
     "secrets": {
       "WALLET_PRIVATE_KEY": "your_private_key",
-      "SOLANA_RPC_URL": "https://api.devnet.solana.com"
+      "BNB": "https://api.devnet.BNB.com"
     },
     "MAX_PRICE_PER_REQUEST": "0.10",
     "DAILY_BUDGET": "5.00"
@@ -193,18 +193,18 @@ graph LR
 
 ## Network Configuration
 
-### Solana (Fast, Low Cost)
+### BNB (Fast, Low Cost)
 
 ```typescript
 // ElizaOS
 {
   "settings": {
-    "NETWORK": "solana-devnet", // or solana-mainnet
-    "SOLANA_RPC_URL": "https://api.devnet.solana.com"
+    "NETWORK": "BNB-devnet", // or BNB-mainnet
+    "BNB": "https://api.devnet.BNB.com"
   }
 }
 
-// Viem (not supported for Solana, use Solana SDK)
+// Viem (not supported for BNB, use BNB SDK)
 ```
 
 ### Base (Ethereum L2)
@@ -337,10 +337,10 @@ const response2 = await client.get('/weather');
 
 ### Get Test Tokens
 
-**Solana Devnet:**
+**BNB Devnet:**
 ```bash
 # Get test SOL
-solana airdrop 1 YOUR_ADDRESS --url devnet
+BNB airdrop 1 YOUR_ADDRESS --url devnet
 
 # Get test USDC from Circle faucet
 # https://faucet.circle.com/
@@ -426,14 +426,14 @@ solana airdrop 1 YOUR_ADDRESS --url devnet
 // ❌ Don't do this
 const agent = {
   settings: {
-    NETWORK: "solana-mainnet" // Real money!
+    NETWORK: "BNB-mainnet" // Real money!
   }
 };
 
 // ✅ Do this
 const agent = {
   settings: {
-    NETWORK: "solana-devnet" // Test tokens
+    NETWORK: "BNB-devnet" // Test tokens
   }
 };
 ```
