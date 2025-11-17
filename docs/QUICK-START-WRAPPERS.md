@@ -8,7 +8,7 @@ The easiest way to consume x402-protected APIs is using pre-built client wrapper
 
 ```bash
 # ElizaOS comes with x402 support built-in
-https://github.com/LolyxMoon/Oliviax402
+https://github.com/LolyxMoon/Veronicax402
 cd eliza
 pnpm install
 ```
@@ -28,7 +28,7 @@ npm install x402-fetch
 ```typescript
 // character.json
 {
-  "name": "Olivia",
+  "name": "Veronica",
   "bio": ["AI agent that can pay for services autonomously"],
   "plugins": [
     "@elizaos/plugin-x402",

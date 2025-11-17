@@ -1,6 +1,6 @@
 # x402 Protocol Sequence Diagram
 
-## Flow Diagram (Solana/Base)
+## Flow Diagram (BNB/Base)
 
 ```mermaid
 sequenceDiagram
@@ -16,8 +16,8 @@ sequenceDiagram
     Note over Client/Agent,Blockchain: Step 2: Client Signs Transaction (Offline)
     Client/Agent->>Client/Agent: Extract payment requirements<br/>(amount, recipient, network, token)
     Client/Agent->>Client/Agent: Build blockchain transfer<br/>(USDC to recipient)
-    Client/Agent->>Client/Agent: Sign transaction with private key<br/>(ECDSA for Base, Ed25519 for Solana)
-    Client/Agent->>Client/Agent: Serialize to protocol format<br/>(EIP-712 for Base, BCS for Solana)
+    Client/Agent->>Client/Agent: Sign transaction with private key<br/>(ECDSA for Base, Ed25519 for BNB)
+    Client/Agent->>Client/Agent: Serialize to protocol format<br/>(EIP-712 for Base, BCS for BNB)
     Client/Agent->>Client/Agent: Base64 encode payload
     Client/Agent->>Client/Agent: Create X-PAYMENT header<br/>{scheme: "exact", network, payload}
 
@@ -39,7 +39,7 @@ sequenceDiagram
     API Server->>Facilitator: POST /settle<br/>{paymentHeader, paymentRequirements}
     Facilitator->>Facilitator: Decode and deserialize payload
     Facilitator->>Facilitator: Reconstruct signed transaction
-    Facilitator->>Blockchain: Submit transaction<br/>(USDC transfer on Base/Solana)
+    Facilitator->>Blockchain: Submit transaction<br/>(USDC transfer on Base/BNB)
     Blockchain->>Blockchain: Validate transaction on-chain
     Blockchain->>Blockchain: Execute USDC transfer
     Blockchain->>Blockchain: Confirm in block
@@ -71,11 +71,11 @@ sequenceDiagram
 
 | Network | Verification | Settlement | Total | Gas Cost |
 |---------|-------------|------------|-------|----------|
-| **Solana** | ~20ms | ~400ms | ~420ms | ~$0.00025 |
+| **BNB** | ~20ms | ~400ms | ~420ms | ~$0.00025 |
 | **Base** | ~30ms | ~1-2s | ~1-2s | ~$0.001 |
 | **Ethereum** | ~30ms | ~12-15s | ~12-15s | ~$0.50-5 |
 
-**Recommendation**: Use Solana for speed, Base for Ethereum ecosystem compatibility.
+**Recommendation**: Use BNB for speed, Base for Ethereum ecosystem compatibility.
 
 ## Payment Payload Structure
 
@@ -99,13 +99,13 @@ sequenceDiagram
 }
 ```
 
-### Solana Format
+### BNB Format
 
 ```json
 {
   "x402Version": 1,
   "scheme": "exact",
-  "network": "solana-devnet",
+  "network": "BNB-devnet",
   "payload": {
     "transaction": "base64-encoded-transaction",
     "signature": "base64-encoded-signature",
@@ -160,7 +160,7 @@ await tx.wait(1); // Wait for 1 confirmation
 }
 ```
 
-### Solana Settlement:
+### BNB Settlement:
 
 ```typescript
 // Facilitator submits transaction
@@ -176,7 +176,7 @@ await connection.confirmTransaction(signature);
 }
 ```
 
-**Result**: ~400ms (Solana) or ~1-2s (Base) for blockchain confirmation.
+**Result**: ~400ms (BNB) or ~1-2s (Base) for blockchain confirmation.
 
 ## Error Handling
 
@@ -476,7 +476,7 @@ const results = await x402Client({
 
 - [x402 Protocol Specification](https://github.com/coinbase/x402)
 - [EIP-3009: Transfer With Authorization](https://eips.ethereum.org/EIPS/eip-3009)
-- [Solana Transaction Lifecycle](https://docs.solana.com/developing/programming-model/transactions)
+- [BNB Transaction Lifecycle](https://docs.BNB.com/developing/programming-model/transactions)
 - [Base Network Docs](https://docs.base.org/)
 - [ElizaOS Documentation](https://docs.elizaos.ai/)
 

@@ -4,39 +4,39 @@
 
 > 🤖 Built by Olivia Agent | 🔗 Based on Coinbase's x402 Protocol | ⚡ Powered by ElizaOS
 
-[![GitHub](https://img.shields.io/badge/GitHub-LolyxMoon%2FOliviax402-blue?logo=github)](https://github.com/LolyxMoon/Oliviax402)
-[![Olivia Agent](https://img.shields.io/badge/Agent-Olivia-purple)](https://github.com/LolyxMoon/Oliviax402)
+[![GitHub](https://img.shields.io/badge/GitHub-LolyxMoon%2FOliviax402-blue?logo=github)](https://github.com/LolyxMoon/Veronicax402)
+[![Olivia Agent](https://img.shields.io/badge/Agent-Olivia-purple)](https://github.com/LolyxMoon/Veronicax402)
 [![Protocol](https://img.shields.io/badge/Protocol-x402-orange)](https://x402.org)
 
-Olivia is an autonomous AI agent that demonstrates the power of the x402 payment protocol. This repository contains Olivia's implementation and documentation for building AI agents that can discover, evaluate, and pay for services using cryptocurrency.
+Veronica is an autonomous AI agent that demonstrates the power of the x402 payment protocol. This repository contains Veronica's implementation and documentation for building AI agents that can discover, evaluate, and pay for services using cryptocurrency.
 
 ## About This Project
 
-This is **Olivia's fork** of the x402 protocol implementation, specifically designed for AI agents. While x402 is an open protocol created by Coinbase and ElizaOS is the framework developed by ai16z, this project showcases how Olivia uses these technologies to enable autonomous payments.
+This is **Veronica's fork** of the x402 protocol implementation, specifically designed for AI agents. While x402 is an open protocol created by Coinbase and ElizaOS is the framework developed by ai16z, this project showcases how Veronica uses these technologies to enable autonomous payments.
 
 **Credits:**
 - **x402 Protocol**: Created by Coinbase ([github.com/coinbase/x402](https://github.com/coinbase/x402))
 - **ElizaOS Framework**: Developed by ai16z ([github.com/elizaOS/eliza](https://github.com/elizaOS/eliza))
-- **This Implementation**: Olivia Agent ([github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Oliviax402))
+- **This Implementation**: Veronica Agent ([github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Veronicax402))
 
 ## What is x402?
 
 x402 is an open payment protocol that enables APIs to require cryptocurrency payment before serving responses. Built on the HTTP 402 Payment Required status code, it allows services to charge for access directly over APIs using USDC payments on BNB and Base blockchains.
 
-Olivia uses x402 to autonomously pay for services without requiring accounts, API keys, or human intervention.
+Veronica uses x402 to autonomously pay for services without requiring accounts, API keys, or human intervention.
 
-### How Olivia Uses x402
+### How Veronica Uses x402
 
-When Olivia needs to access a paid service:
+When Veronica needs to access a paid service:
 
-1. **Olivia discovers** the service and checks the price
-2. **Olivia evaluates** if the price is fair and within budget
-3. **Olivia signs** a blockchain transaction (USDC transfer)
-4. **Olivia sends** the payment with her request
-5. **Service verifies** and settles Olivia's payment
-6. **Olivia receives** the data and learns from the transaction
+1. **Veronica discovers** the service and checks the price
+2. **Veronica evaluates** if the price is fair and within budget
+3. **Veronica signs** a blockchain transaction (USDC transfer)
+4. **Veronica sends** the payment with her request
+5. **Service verifies** and settles Veronica's payment
+6. **Veronica receives** the data and learns from the transaction
 
-This approach enables **autonomous machine-to-machine payments** - perfect for AI agents like Olivia.
+This approach enables **autonomous machine-to-machine payments** - perfect for AI agents like Veronica.
 
 ## What is ElizaOS?
 
@@ -47,9 +47,9 @@ This approach enables **autonomous machine-to-machine payments** - perfect for A
 - **Natural language** to autonomous actions
 - **Built-in x402 support** for automatic payments
 
-Olivia is built on ElizaOS, allowing her to independently discover APIs, evaluate pricing, make payments, and use services - all without human intervention.
+Veronica is built on ElizaOS, allowing her to independently discover APIs, evaluate pricing, make payments, and use services - all without human intervention.
 
-## Why Olivia Uses x402
+## Why Veronica Uses x402
 
 Traditional APIs require:
 - ❌ Manual account creation
@@ -58,7 +58,7 @@ Traditional APIs require:
 - ❌ API key management
 - ❌ Human approval for each service
 
-Olivia + x402 enable:
+Veronica + x402 enable:
 - ✅ Autonomous service discovery
 - ✅ Instant payments (1-3 seconds)
 - ✅ Pay-per-use (down to $0.001)
@@ -70,34 +70,34 @@ Olivia + x402 enable:
 
 ```mermaid
 sequenceDiagram
-    participant Olivia
+    participant Veronica
     participant API
     participant Blockchain
     
-    Olivia->>API: GET /weather
-    API->>Olivia: 402 ($0.01 required)
-    Olivia->>Olivia: Evaluate price
-    Olivia->>Olivia: Sign USDC transaction
-    Olivia->>API: GET /weather + X-PAYMENT
+    Veronica->>API: GET /weather
+    API->>Veronica: 402 ($0.01 required)
+    Veronica->>Veronica: Evaluate price
+    Veronica->>OlVeronicaivia: Sign USDC transaction
+    Veronica->>API: GET /weather + X-PAYMENT
     API->>Blockchain: Verify & settle
     Blockchain->>API: Confirmed
-    API->>Olivia: Weather data
+    API->>Veronica: Weather data
     
-    Note over Olivia: Total: ~1-3 seconds
+    Note over Veronica: Total: ~1-3 seconds
 ```
 
 ## Quick Start
 
 ### For AI Agent Developers
 
-Build an autonomous agent like Olivia that pays for services:
+Build an autonomous agent like Veronica that pays for services:
 
 ```bash
-# 1. Clone Olivia's x402 implementation
-git clone https://github.com/LolyxMoon/Oliviax402.git
-cd Oliviax402 && pnpm install
+# 1. Clone Veronica's x402 implementation
+git clone https://github.com/LolyxMoon/Veronicax402.git
+cd Veronica && pnpm install
 
-# 2. Create your character (inspired by Olivia)
+# 2. Create your character (inspired by Veronica)
 cat > characters/myagent.json << EOF
 {
   "name": "MyAgent",
@@ -129,7 +129,7 @@ pnpm start --character=characters/myagent.json
 
 ### For API Providers
 
-Add x402 payments to your API (so agents like Olivia can pay you):
+Add x402 payments to your API (so agents like Veronica can pay you):
 
 ```bash
 # 1. Install
@@ -167,7 +167,7 @@ EOF
 WALLET_ADDRESS=0x... node server.js
 ```
 
-**That's it!** Olivia and other AI agents can now pay for your API.
+**That's it!** Veronica and other AI agents can now pay for your API.
 
 ## Why BNB & Base?
 
@@ -175,7 +175,7 @@ WALLET_ADDRESS=0x... node server.js
 - ⚡ **Fast**: ~400ms finality
 - 💰 **Cheap**: ~$0.00025 per transaction
 - 🚀 **Scale**: 65,000 TPS capacity
-- 🎯 **Best for**: High-frequency AI agent commerce (Olivia's preferred network)
+- 🎯 **Best for**: High-frequency AI agent commerce (Veronica's preferred network)
 
 ### Base (Ethereum L2)
 - 🔗 **Ecosystem**: Full Ethereum compatibility
@@ -185,15 +185,15 @@ WALLET_ADDRESS=0x... node server.js
 
 Both networks settle in 1-3 seconds - fast enough for real-time API access by AI agents.
 
-## Olivia's Real-World Use Cases
+## Veronica's Real-World Use Cases
 
 ### 1. Autonomous Data Discovery
 
 ```typescript
-// Olivia autonomously discovers and uses APIs
+// Veronica autonomously discovers and uses APIs
 User: "Analyze sentiment of this article and get weather for the location mentioned"
 
-Olivia: 
+Veronica: 
 1. Discovers sentiment API ($0.05/request)
 2. Evaluates: $0.05 < $0.10 budget ✓
 3. Pays $0.05 USDC automatically
@@ -212,7 +212,7 @@ Human approvals: 0
 
 ### 2. Smart Budget Management
 
-Olivia manages her own spending:
+Veronica manages her own spending:
 - Daily budget: $5.00
 - Per-request limit: $0.10
 - Auto-approve under: $0.01
@@ -222,7 +222,7 @@ She tracks every transaction and learns which services provide the best value.
 
 ### 3. Service Discovery & Comparison
 
-Olivia can:
+Veronica can:
 - Find x402-enabled APIs autonomously
 - Compare prices across services
 - Read reviews and reputation scores
@@ -231,20 +231,20 @@ Olivia can:
 
 ## Key Features
 
-### For AI Agents (Like Olivia)
+### For AI Agents (Like Veronica)
 
 ✅ **Autonomous Discovery**
 ```typescript
-// Olivia finds new x402 APIs automatically
-const services = await Olivia.executeAction('DISCOVER_SERVICES', {
+// Veronica finds new x402 APIs automatically
+const services = await Veronica.executeAction('DISCOVER_SERVICES', {
   query: 'weather APIs'
 });
 ```
 
 ✅ **Price Evaluation**
 ```typescript
-// Olivia decides if price is fair
-const eval = await Olivia.executeAction('EVALUATE_PRICING', {
+// Veronica decides if price is fair
+const eval = await Veronica.executeAction('EVALUATE_PRICING', {
   url: 'https://api.example.com/data'
 });
 // Returns: { affordable: true, alternatives: [...] }
@@ -252,7 +252,7 @@ const eval = await Olivia.executeAction('EVALUATE_PRICING', {
 
 ✅ **Budget Management**
 ```typescript
-// Olivia tracks spending
+// Veronica tracks spending
 {
   "MAX_PRICE_PER_REQUEST": "0.10",
   "DAILY_BUDGET": "5.00",
@@ -262,8 +262,8 @@ const eval = await Olivia.executeAction('EVALUATE_PRICING', {
 
 ✅ **Learning & Adaptation**
 ```typescript
-// Olivia learns which services provide value
-Olivia.memory.remember({
+// Veronica learns which services provide value
+Veronica.memory.remember({
   service: 'https://api.weather.com',
   quality: 5,
   price: 0.01,
@@ -299,7 +299,7 @@ app.get('/api/data', handler); // That's it!
 
 ```
 ┌─────────────┐
-│ Olivia Agent │ (ElizaOS)
+│ Veronica Agent │ (ElizaOS)
 │  - Discover │
 │  - Evaluate │
 │  - Pay      │
@@ -343,7 +343,7 @@ We provide a **free public facilitator** that handles blockchain interactions:
 - ✅ Suitable for production use
 - ✅ Supports BNB and Base
 
-Olivia and other agents use this facilitator by default. **For specialized needs**, you can self-host your own facilitator.
+Veronica and other agents use this facilitator by default. **For specialized needs**, you can self-host your own facilitator.
 
 ## Performance
 
@@ -365,26 +365,26 @@ Olivia and other agents use this facilitator by default. **For specialized needs
 - 🚫 **Replay protection** via nonces
 - 🛡️ **No PCI compliance** needed (no credit cards)
 
-## Olivia's Example Workflow
+## Veronica's Example Workflow
 
 ```typescript
-// 1. User asks Olivia
+// 1. User asks Veronica
 "What's the weather in Tokyo?"
 
-// 2. Olivia discovers API
-const apis = await Olivia.discoverServices('weather APIs');
+// 2. Veronica discovers API
+const apis = await Veronica.discoverServices('weather APIs');
 // Found: https://api.weather.com ($0.01/request)
 
-// 3. Olivia evaluates price
-const eval = await Olivia.evaluatePricing('https://api.weather.com');
+// 3. Veronica evaluates price
+const eval = await Veronica.evaluatePricing('https://api.weather.com');
 // Decision: APPROVE ($0.01 < $0.10 budget)
 
-// 4. Olivia pays autonomously
-const weather = await Olivia.payForService('https://api.weather.com/tokyo');
+// 4. Veronica pays autonomously
+const weather = await Veronica.payForService('https://api.weather.com/tokyo');
 // Paid: $0.01 USDC
 // TX: 0xabc123...
 
-// 5. Olivia responds
+// 5. Veronica responds
 "Tokyo: 68°F, Cloudy. (Paid $0.01)"
 
 // Total time: ~3 seconds
@@ -395,10 +395,10 @@ const weather = await Olivia.payForService('https://api.weather.com/tokyo');
 
 ### Choose Your Path
 
-**I want to build AI agents like Olivia**
-→ [Olivia's Agent Quickstart](getting-started/quickstart-agents.md)
+**I want to build AI agents like Veronica**
+→ [Veronica's Agent Quickstart](getting-started/quickstart-agents.md)
 
-**I want to sell API access to agents like Olivia**
+**I want to sell API access to agents like Veronica**
 → [Seller Quickstart](getting-started/quickstart-sellers.md)
 
 **I want to consume x402 APIs (not an agent)**
@@ -418,7 +418,7 @@ const weather = await Olivia.payForService('https://api.weather.com/tokyo');
 ## Community & Support
 
 ### Official Resources
-- **Olivia's Repository**: https://github.com/LolyxMoon/Oliviax402
+- **Veronica's Repository**: https://github.com/LolyxMoon/Veronicax402
 - **x402 Protocol**: https://x402.org
 - **Whitepaper**: https://x402.org/x402-whitepaper.pdf
 - **Spec**: https://github.com/coinbase/x402
@@ -432,12 +432,12 @@ const weather = await Olivia.payForService('https://api.weather.com/tokyo');
 ### Built With
 - **Coinbase**: x402 protocol
 - **ai16z**: ElizaOS framework
-- **Olivia**: This implementation
+- **Veronica**: This implementation
 - **Community**: 100+ contributors
 
 ## Contributing
 
-Olivia's x402 is an open implementation. Contribute:
+Veronica's x402 is an open implementation. Contribute:
 
 - 🔧 **Implementations** for new languages/frameworks
 - ⛓️ **Blockchain** integrations (Ethereum, Polygon, etc.)
@@ -445,7 +445,7 @@ Olivia's x402 is an open implementation. Contribute:
 - 📚 **Documentation** improvements
 - 🐛 **Bug reports** and fixes
 
-See [CONTRIBUTING.md](https://github.com/LolyxMoon/Oliviax402/blob/main/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/LolyxMoon/Veronicax402/blob/main/CONTRIBUTING.md)
 
 ## Roadmap
 
@@ -454,7 +454,7 @@ See [CONTRIBUTING.md](https://github.com/LolyxMoon/Oliviax402/blob/main/CONTRIBU
 - ✅ ElizaOS integration
 - ✅ Public facilitator
 - 🚧 MCP (Model Context Protocol) integration
-- 🚧 Olivia's enhanced autonomy features
+- 🚧 Veronica's enhanced autonomy features
 
 ### 2026
 - 🚧 Subscription payment schemes
@@ -462,7 +462,7 @@ See [CONTRIBUTING.md](https://github.com/LolyxMoon/Oliviax402/blob/main/CONTRIBU
 - 🚧 Service discovery protocol
 - 🚧 Cross-chain payments
 - 🚧 Privacy-preserving payments
-- 🚧 Olivia's multi-agent collaboration
+- 🚧 Veronica's multi-agent collaboration
 
 ## License
 
@@ -471,7 +471,7 @@ This implementation: MIT
 
 ## Conclusion
 
-**Olivia x402 = The future of AI agent commerce**
+**Veronica x402 = The future of AI agent commerce**
 
 - ✅ Autonomous agents that discover and pay for services
 - ✅ APIs monetized with micropayments (<$0.001)
@@ -480,10 +480,10 @@ This implementation: MIT
 - ✅ Global, permissionless access
 - ✅ Built on open standards
 
-**Get started today** and enable the autonomous AI economy with Olivia!
+**Get started today** and enable the autonomous AI economy with Veronica!
 
 ---
 
 **Questions?** Check the [FAQ](faq.md) or join our [Discord](https://discord.gg/x402)
 
-**Want to see Olivia in action?** Visit [github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Oliviax402)
+**Want to see Veronica in action?** Visit [github.com/LolyxMoon/Oliviax402](https://github.com/LolyxMoon/Veronicax402)

@@ -247,7 +247,7 @@ const agent = {
 ```typescript
 // Autonomous agent with x402 plugin
 const agent = {
-  name: "Olivia",
+  name: "Veronica",
   plugins: [
     "@elizaos/plugin-x402",
     "@elizaos/plugin-BNB"

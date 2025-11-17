@@ -23,7 +23,7 @@ export default function LandingPage() {
             <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-zinc-900">
               HTTP 402 for APIs.
               <br />
-              <span className="text-zinc-600">Olivia AI agents that pay.</span>
+              <span className="text-zinc-600">Veronica AI agents that pay.</span>
             </h1>
 
             {/* Subheadline */}
@@ -51,9 +51,9 @@ export default function LandingPage() {
 
             {/* Quick Install */}
             <div className="pt-8">
-              <p className="text-sm text-zinc-500 mb-3">Get started with Oliviax402</p>
+              <p className="text-sm text-zinc-500 mb-3">Get started with Veronica</p>
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 rounded-lg font-mono text-sm text-zinc-100">
-                <span>https://github.com/LolyxMoon/Oliviax402</span>
+                <span>https://github.com/LolyxMoon/Veronicax402</span>
               </div>
             </div>
           </div>
@@ -284,10 +284,10 @@ const payAction = {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h2 className="text-3xl font-bold text-zinc-900 mb-4">
-                  Built for Oliviax402/ElizaOS Agents
+                  Built for Veronicax402/ElizaOS Agents
                 </h2>
                 <p className="text-zinc-600 mb-6">
-                  The first AI agent framework with native x402 support. Olivia/ElizaOS agents can autonomously 
+                  The first AI agent framework with native x402 support. Veronica/ElizaOS agents can autonomously 
                   discover, evaluate, and pay for services across the internet using USDC micropayments.
                 </p>
                 <ul className="space-y-3 text-sm text-zinc-600">
@@ -433,7 +433,7 @@ const payAction = {
             {/* Large Typography */}
             <div className="text-center mb-12">
               <h2 className="text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-zinc-900" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-                Oliviax402
+                Veronica
               </h2>
               <p className="text-sm text-zinc-500 mt-4">
                 The payment protocol for autonomous AI agents
@@ -447,7 +447,7 @@ const payAction = {
               </div>
               <div className="flex items-center gap-6">
                 <a
-                  href="https://x.com/oliviax402"
+                  href="https://x.com/Veronicax402"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-900 transition-colors"
@@ -463,7 +463,7 @@ const payAction = {
                   x402.org
                 </a>
                 <a
-                  href="https://github.com/LolyxMoon/Oliviax402"
+                  href="https://github.com/LolyxMoon/Veronicax402"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-zinc-900 transition-colors"

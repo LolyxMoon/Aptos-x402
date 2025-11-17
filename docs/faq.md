@@ -71,7 +71,7 @@ No. ElizaOS provides an x402 plugin with pre-built actions:
 import { x402Plugin } from '@elizaos/plugin-x402';
 
 const agent = {
-  name: "Olivia",
+  name: "Veronica",
   plugins: [x402Plugin],
   actions: [
     'PAY_FOR_SERVICE',      // Automatically pays for APIs

@@ -40,7 +40,7 @@ This document explains the complete payment flow for x402 with ElizaOS AI agents
        │ 6. Settle on blockchain
        ▼
 ┌──────────────┐
-│  Blockchain  │ (Solana/Base)
+│  Blockchain  │ (BNB/Base)
 └──────┬───────┘
        │ 7. Confirm transaction
        ▼

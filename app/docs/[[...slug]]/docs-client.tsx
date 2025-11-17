@@ -387,7 +387,7 @@ export default function DocsClient({ initialContent, initialDocPath, docsStructu
                       </Badge>
                     </div>
                     <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-zinc-900">
-                      Welcome to Olivia x402
+                      Welcome to Veronica x402
                     </h1>
                     <p className="text-lg text-zinc-600 mb-8 leading-relaxed max-w-2xl">
                       A revolutionary HTTP 402 implementation for BNB blockchain. Enable seamless micropayments and pay-per-use APIs with built-in blockchain verification.
