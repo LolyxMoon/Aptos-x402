@@ -372,7 +372,7 @@ export default function DocsClient({ initialContent, initialDocPath, docsStructu
                     {/* Banner Image */}
                     <div className="mb-6">
                       <img 
-                        src="/banner.png" 
+                        src="/banner.gif" 
                         alt="Banner" 
                         className="w-full h-auto rounded-lg"
                       />
