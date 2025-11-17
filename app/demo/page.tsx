@@ -27,7 +27,7 @@ export default function Home() {
     setTiming(null);
 
     try {
-      console.log('\n Using Oliviax402 (Simple BNB payment wrapper)...');
+      console.log('\n Using Veronicax402 (Simple SOL payment wrapper)...');
       console.log('This will:');
       console.log('  1. Make request to the protected API');
       console.log('  2. Detect 402 Payment Required response');
